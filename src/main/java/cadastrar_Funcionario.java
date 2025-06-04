@@ -7,12 +7,12 @@
  *
  * @author malu
  */
-public class cadastrar_cliente extends javax.swing.JPanel {
+public class cadastrar_Funcionario extends javax.swing.JPanel {
 
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_cliente() {
+    public cadastrar_Funcionario() {
         initComponents();
     }
 
@@ -32,6 +32,7 @@ public class cadastrar_cliente extends javax.swing.JPanel {
         voltar = new javax.swing.JButton();
         cadastrar = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
+        Funcao = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(255, 255, 204));
         setPreferredSize(new java.awt.Dimension(1134, 624));
@@ -44,6 +45,11 @@ public class cadastrar_cliente extends javax.swing.JPanel {
         });
 
         endereco.setText("Endereco");
+        endereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enderecoActionPerformed(evt);
+            }
+        });
 
         telefone.setText("Telefone");
         telefone.addActionListener(new java.awt.event.ActionListener() {
@@ -60,25 +66,33 @@ public class cadastrar_cliente extends javax.swing.JPanel {
 
         Nome.setText("Nome");
 
+        Funcao.setText("Funcao");
+        Funcao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FuncaoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(141, 141, 141)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                                .addComponent(telefone)
+                                .addComponent(senha)
                                 .addComponent(endereco)
                                 .addComponent(cpf)
-                                .addComponent(Nome)))))
+                                .addComponent(Nome)
+                                .addComponent(telefone)
+                                .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,7 +100,7 @@ public class cadastrar_cliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75)
+                .addGap(50, 50, 50)
                 .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -95,10 +109,12 @@ public class cadastrar_cliente extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
                 .addComponent(cadastrar)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -110,8 +126,17 @@ public class cadastrar_cliente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_telefoneActionPerformed
 
+    private void enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_enderecoActionPerformed
+
+    private void FuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FuncaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FuncaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Funcao;
     private javax.swing.JTextField Nome;
     private javax.swing.JButton cadastrar;
     private javax.swing.JTextField cpf;

@@ -7,12 +7,12 @@
  *
  * @author malu
  */
-public class cadastrar_Funcionario extends javax.swing.JPanel {
+public class verifica_credencial extends javax.swing.JPanel {
 
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_Funcionario() {
+    public verifica_credencial() {
         initComponents();
     }
 
@@ -26,15 +26,11 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
     private void initComponents() {
 
         cpf = new javax.swing.JTextField();
-        endereco = new javax.swing.JTextField();
-        telefone = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         voltar = new javax.swing.JButton();
         cadastrar = new javax.swing.JButton();
-        Nome = new javax.swing.JTextField();
-        Funcao = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 255, 204));
+        setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(new java.awt.Dimension(1134, 624));
 
         cpf.setText("CPF");
@@ -44,34 +40,11 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
             }
         });
 
-        endereco.setText("Endereco");
-        endereco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                enderecoActionPerformed(evt);
-            }
-        });
-
-        telefone.setText("Telefone");
-        telefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefoneActionPerformed(evt);
-            }
-        });
-
         senha.setText("jPasswordField1");
 
         voltar.setText("voltar");
 
         cadastrar.setText("cadastrar");
-
-        Nome.setText("Nome");
-
-        Funcao.setText("Funcao");
-        Funcao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                FuncaoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -87,13 +60,9 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(senha)
-                                .addComponent(endereco)
-                                .addComponent(cpf)
-                                .addComponent(Nome)
-                                .addComponent(telefone)
-                                .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(118, Short.MAX_VALUE))
+                                .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                                .addComponent(cpf)))))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,18 +72,10 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
                 .addGap(50, 50, 50)
                 .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(telefone, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cadastrar)
-                .addContainerGap(87, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -122,27 +83,11 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cpfActionPerformed
 
-    private void telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefoneActionPerformed
-
-    private void enderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enderecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_enderecoActionPerformed
-
-    private void FuncaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FuncaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FuncaoActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Funcao;
-    private javax.swing.JTextField Nome;
     private javax.swing.JButton cadastrar;
     private javax.swing.JTextField cpf;
-    private javax.swing.JTextField endereco;
     private javax.swing.JPasswordField senha;
-    private javax.swing.JTextField telefone;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

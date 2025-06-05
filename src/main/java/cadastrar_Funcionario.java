@@ -34,7 +34,7 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
         Nome = new javax.swing.JTextField();
         Funcao = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(255, 255, 204));
+        setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(new java.awt.Dimension(1134, 624));
 
         cpf.setText("CPF");

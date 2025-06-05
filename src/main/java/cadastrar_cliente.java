@@ -79,7 +79,7 @@ public class cadastrar_cliente extends javax.swing.JPanel {
                                 .addComponent(endereco)
                                 .addComponent(cpf)
                                 .addComponent(Nome)))))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -1,4 +1,6 @@
+package classes;
 /**
+ * 
  * Classe SubPedido (Parte do Arthur).
  * Representa uma parte de um pedido, associando um item a uma quantidade.
  * Agrega um IItem (interface da Malu).

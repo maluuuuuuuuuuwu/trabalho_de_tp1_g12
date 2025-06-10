@@ -9,12 +9,21 @@ package classes;
  * @author malu
  */
 public class Funcionarios {
-    protected String nome, CPF, funcao;
+    protected String nome, CPF, funcao, senha;
 
-    public Funcionarios(String nome, String CPF, String funcao) {
+    public Funcionarios(String nome, String CPF, String funcao,String senha) {
         this.nome = nome;
         this.CPF = CPF;
         this.funcao = funcao;
+        this.senha = senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getSenha() {
+        return senha;
     }
 
     public String getNome() {

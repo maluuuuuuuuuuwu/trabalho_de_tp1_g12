@@ -31,6 +31,8 @@ public class Adicionar_item extends javax.swing.JPanel {
         voltar = new javax.swing.JButton();
         adicionar_item = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Ingredientes = new javax.swing.JTextPane();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(new java.awt.Dimension(1134, 624));
@@ -63,6 +65,9 @@ public class Adicionar_item extends javax.swing.JPanel {
             }
         });
 
+        Ingredientes.setText("Ingredientes");
+        jScrollPane1.setViewportView(Ingredientes);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,14 +79,14 @@ public class Adicionar_item extends javax.swing.JPanel {
                         .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(99, 99, 99)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(Preco)
-                                .addComponent(Quantidade)
-                                .addComponent(codigo_item)
-                                .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(76, Short.MAX_VALUE))
+                            .addComponent(Preco, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))))
+                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,9 +101,11 @@ public class Adicionar_item extends javax.swing.JPanel {
                 .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Preco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(adicionar_item)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addGap(83, 83, 83))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,11 +123,13 @@ public class Adicionar_item extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane Ingredientes;
     private javax.swing.JTextField Nome;
     private javax.swing.JTextField Preco;
     private javax.swing.JTextField Quantidade;
     private javax.swing.JButton adicionar_item;
     private javax.swing.JTextField codigo_item;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

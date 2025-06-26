@@ -6,21 +6,21 @@ package classes;
  * Agrega um IItem (interface da Malu).
  */
 class SubPedido {
-    private IItem item;
-    private int quantidade;
+    public Item item;
+    public int quantidade;
 
     /**
      * Construtor para a classe SubPedido.
      * @param item O item do menu (IItem da Malu).
      * @param quantidade A quantidade do item.
      */
-    public SubPedido(IItem item, int quantidade) {
+    public SubPedido(Item item, int quantidade) {
         this.item = item;
         this.quantidade = quantidade;
     }
 
     // Getters
-    public IItem getItem() {
+    public Item getItem() {
         return item;
     }
 
@@ -38,6 +38,6 @@ class SubPedido {
 
     @Override
     public String toString() {
-        return quantidade + "x " + item.getNome() + " (R$" + String.format("%.2f", item.getPreco()) + ")";
+        return quantidade + "x " + item.getIngredientes() + " (R$" + String.format("%.2f", item.getPreco()) + ")";
     }
 }

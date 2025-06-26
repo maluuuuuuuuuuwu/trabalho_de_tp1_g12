@@ -72,8 +72,8 @@ public class Loja {
         return endereco;
     }
     
-    public void cadastrarCliente(String cpf, String endereco, String telefone, String nome) {
-        Cliente cliente = new Cliente(cpf, endereco, telefone, nome);
+    public void cadastrarCliente(String cpf, String endereco, String telefone, String nome, String senha) {
+        Cliente cliente = new Cliente(cpf, endereco, telefone, nome,senha);
         lista_clientes.add(cliente);
     }
     

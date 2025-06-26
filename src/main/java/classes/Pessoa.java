@@ -8,40 +8,22 @@ package classes;
  *
  * @author malu
  */
-public class Funcionarios extends Pessoa{
-    protected String funcao;
+public class Pessoa {
+    protected String cpf;
+    protected String endereco;
+    protected String telefone;
+    protected String nome;
+    protected String senha;
 
-    public Funcionarios(String funcao, String cpf, String endereco, String telefone, String nome, String senha) {
-        super(cpf, endereco, telefone, nome, senha);
-        this.funcao = funcao;
-    }
-
-    public void setFuncao(String funcao) {
-        this.funcao = funcao;
-    }
-
-    public void setCpf(String cpf) {
+    public Pessoa(){
+    };
+    
+    public Pessoa(String cpf, String endereco, String telefone, String nome, String senha) {
         this.cpf = cpf;
-    }
-
-    public void setEndereco(String endereco) {
         this.endereco = endereco;
-    }
-
-    public void setTelefone(String telefone) {
         this.telefone = telefone;
-    }
-
-    public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public String getFuncao() {
-        return funcao;
     }
 
     public String getCpf() {
@@ -63,8 +45,25 @@ public class Funcionarios extends Pessoa{
     public String getSenha() {
         return senha;
     }
-    
-    
-    
 
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
 }

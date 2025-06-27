@@ -52,18 +52,12 @@ public class Item {
         return true;
     }
 
-    public boolean remove_estoque() {
-        if (!verificaEstoque()) {
-            return false;
-        }
-        
+    public void remove_estoque() {
         List<ItemEstoque> estoque = loja.getEstoque();
-        for (String ingrediente : ingredientes) {
-            estoque.stream()
-                .filter(item -> item.getNome().equals(ingrediente))
-                .findFirst()
-                .ifPresent(item -> item.setQuantidade(item.getQuantidade() - 1));
+        for(String ingrediente : ingredientes){
+            if(verificaEstoque()){
+                loja.removerUmItemEstoque(ingrediente);
+            }
         }
-        return true;
     }
 }

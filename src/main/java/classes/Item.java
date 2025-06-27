@@ -12,14 +12,16 @@ import java.util.ArrayList;
  * @author malu
  */
 public class Item {
+    private String nome;
     private List<String> ingredientes;
     private double preco;
     private Loja loja;
 
-    public Item(List<String> ingredientes, double preco, Loja loja) {
+    public Item(String nome, List<String> ingredientes, double preco, Loja loja) {
         this.ingredientes = ingredientes;
         this.preco = preco;
         this.loja = loja;
+        this.nome = nome;
     }
 
     public List<String> getIngredientes() {
@@ -30,6 +32,10 @@ public class Item {
         return preco;
     }
 
+    public String getnome() {
+        return nome;
+    }
+    
     public void setIngredientes(List<String> ingredientes) {
         this.ingredientes = ingredientes;
     }

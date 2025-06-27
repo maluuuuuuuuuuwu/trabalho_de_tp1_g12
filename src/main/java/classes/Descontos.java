@@ -96,11 +96,11 @@ public abstract class Descontos {
         @Override
         public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
             long numPizzas = subpedidos.stream()
-                    .filter(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()))
+                    .filter(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getNome()))
                     .mapToInt(SubPedido::getQuantidade)
                     .sum();
             long numRefrigerantes = subpedidos.stream()
-                    .filter(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getTipo()))
+                    .filter(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getNome()))
                     .mapToInt(SubPedido::getQuantidade)
                     .sum();
 
@@ -121,7 +121,7 @@ public abstract class Descontos {
 
             // Encontra o refrigerante mais barato no pedido
             double precoRefriMaisBarato = subpedidos.stream()
-                    .filter(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getTipo()))
+                    .filter(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getNome()))
                     .mapToDouble(sp -> sp.getItem().getPreco())
                     .min()
                     .orElse(0.0); // Se não encontrar, o desconto é 0
@@ -148,9 +148,9 @@ public abstract class Descontos {
          */
         @Override
         public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
-            boolean temPizza = subpedidos.stream().anyMatch(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
-            boolean temRefri = subpedidos.stream().anyMatch(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
-            boolean temSobremesa = subpedidos.stream().anyMatch(sp -> "Sobremesa".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
+            boolean temPizza = subpedidos.stream().anyMatch(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getNome()) && sp.getQuantidade() >= 1);
+            boolean temRefri = subpedidos.stream().anyMatch(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getNome()) && sp.getQuantidade() >= 1);
+            boolean temSobremesa = subpedidos.stream().anyMatch(sp -> "Sobremesa".equalsIgnoreCase(sp.getItem().getNome()) && sp.getQuantidade() >= 1);
             return temPizza && temRefri && temSobremesa;
         }
 
@@ -197,7 +197,7 @@ public abstract class Descontos {
 
             // Verifica se há pelo menos uma pizza no pedido atual para receber a gratuidade
             boolean temPizzasNoPedidoAtual = subpedidos.stream()
-                    .anyMatch(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()));
+                    .anyMatch(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getNome()));
 
             return clienteElegivel && temPizzasNoPedidoAtual;
         }
@@ -217,7 +217,7 @@ public abstract class Descontos {
 
             // Encontra a pizza mais barata no pedido para dar de graça
             double precoPizzaMaisBarata = subpedidos.stream()
-                    .filter(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()))
+                    .filter(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getNome()))
                     .mapToDouble(sp -> sp.getItem().getPreco())
                     .min()
                     .orElse(0.0); // Se não tiver pizzas, não dá desconto

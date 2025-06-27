@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package classes;
-
 import java.util.List;
 import java.util.ArrayList;
 /**
@@ -11,10 +10,10 @@ import java.util.ArrayList;
  * @author malu
  */
 public class Loja {
-    private List<String> estoque = new ArrayList<>();
+    private List<ItemEstoque> estoque = new ArrayList<>();
     private List<Funcionarios> lista_funcionarios = new ArrayList<>();
     private List<Pedido> lista_pedidos = new ArrayList<>();
-    private List<Desconto> lista_descontos = new ArrayList<>();
+    private List<Descontos> lista_descontos = new ArrayList<>();
     private final String endereco = "UnB, campus Darcy Ribeiro, ICC Norte, subsolo modulo 9, linf 3";
     private List<Cliente> lista_clientes = new ArrayList<>();
     private List<Item> itens_oferecidos = new ArrayList<>();
@@ -29,8 +28,8 @@ public class Loja {
         }
     }
     
-    public void addItemEstoque(String item) {
-        if (item != null && !item.trim().isEmpty()) {
+    public void addItemEstoque(ItemEstoque item) {
+        if (item != null) {
             estoque.add(item);
         }
     }
@@ -53,14 +52,14 @@ public class Loja {
         }
     }
 
-    public void addDesconto(Desconto desconto) {
+    public void addDesconto(Descontos desconto) {
         if (desconto != null) {
             lista_descontos.add(desconto);
         }
     }
 
-    public List<String> getEstoque() {
-        return new ArrayList<>(estoque); // retornar cópia para segurança
+    public List<ItemEstoque> getEstoque() {
+        return new ArrayList<>(estoque); 
     }
 
     public List<Funcionarios> getLista_funcionarios() {
@@ -75,7 +74,7 @@ public class Loja {
         return new ArrayList<>(lista_pedidos);
     }
 
-    public List<Desconto> getLista_descontos() {
+    public List<Descontos> getLista_descontos() {
         return new ArrayList<>(lista_descontos);
     }
 
@@ -86,6 +85,11 @@ public class Loja {
     public void cadastrarCliente(String cpf, String endereco, String telefone, String nome, String senha) {
         Cliente cliente = new Cliente(cpf, endereco, telefone, nome,senha);
         lista_clientes.add(cliente);
+    }
+    
+    public void cadastrarFuncionario(String cpf,String funcao, String endereco, String telefone, String nome, String senha) {
+        Funcionarios funcionario = new Funcionarios(funcao,cpf,endereco, telefone,nome,senha);
+        lista_funcionarios.add(funcionario);
     }
     
     public double calcularTempo() {
@@ -136,11 +140,20 @@ public class Loja {
         return false;
     }
 
-    public boolean removerItemEstoque(String nomeItem) {
-        if (nomeItem != null && !nomeItem.trim().isEmpty()) {
-            return estoque.remove(nomeItem);
+    public boolean removerItemEstoque(ItemEstoque item) {
+        if (item != null) {
+            return estoque.remove(item);
         }
         return false;
     }
-    
+
+    public void removerUmItemEstoque(String itemName) {
+        for (ItemEstoque item : estoque) {
+            if (item.getNome().equals(itemName)) {
+                if (item.getQuantidade() > 0) {
+                    item.setQuantidade(item.getQuantidade() - 1);
+                }
+            }
+        }
+    }
 }

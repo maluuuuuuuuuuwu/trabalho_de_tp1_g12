@@ -37,13 +37,32 @@ public class Item {
     public void setPreco(double preco) {
         this.preco = preco;
     }
-
+    
     public boolean verificaEstoque() {
-        List<String> estoque = loja.getEstoque();
+        List<ItemEstoque> estoque = loja.getEstoque();
         for (String ingrediente : ingredientes) {
-            if (!estoque.contains(ingrediente)) {
+            boolean disponivel = estoque.stream()
+                .filter(item -> item.getNome().equals(ingrediente))
+                .anyMatch(item -> item.getQuantidade() > 0);
+
+            if (!disponivel) {
                 return false;
             }
+        }
+        return true;
+    }
+
+    public boolean remove_estoque() {
+        if (!verificaEstoque()) {
+            return false;
+        }
+        
+        List<ItemEstoque> estoque = loja.getEstoque();
+        for (String ingrediente : ingredientes) {
+            estoque.stream()
+                .filter(item -> item.getNome().equals(ingrediente))
+                .findFirst()
+                .ifPresent(item -> item.setQuantidade(item.getQuantidade() - 1));
         }
         return true;
     }

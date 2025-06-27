@@ -9,8 +9,9 @@ import java.util.ArrayList;
  *
  * @author alexb
  */
-public class Cliente extends Pessoa{
-    public List<Pedido> pedido =  new ArrayList<>();;
+public class Cliente extends Pessoa {
+    public List<Pedido> pedido = new ArrayList<>();
+    private int pizzasCompradas;
 
     public Cliente(String cpf, String endereco, String telefone, String nome, String senha) {
         super(cpf, endereco, telefone, nome, senha);
@@ -20,6 +21,24 @@ public class Cliente extends Pessoa{
         this.pedido.add(pedido);
     }
 
+    public void adicionarPizzasCompradas(int quantidade) {
+        this.pizzasCompradas += quantidade;
+    }
+
+    /**
+     * @return Total de pizzas compradas pelo cliente
+     */
+    public int getPizzasCompradas() {
+        return this.pizzasCompradas;
+    }
+
+    /**
+     * Método para resetar o contador quando o cliente resgata uma pizza grátis
+     */
+    public void resetarPizzasCompradas() {
+        this.pizzasCompradas = this.pizzasCompradas % 5;
+    }
+    
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
@@ -63,6 +82,4 @@ public class Cliente extends Pessoa{
     public String getSenha() {
         return senha;
     }
-
-    
 }

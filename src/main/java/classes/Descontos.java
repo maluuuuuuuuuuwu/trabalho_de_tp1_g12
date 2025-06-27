@@ -7,14 +7,14 @@ import java.util.stream.Collectors;
  * Classe base para diferentes tipos de descontos.
  * As implementações específicas de desconto são classes aninhadas estáticas.
  */
-public abstract class Desconto {
+public abstract class Descontos {
     protected String descricao;
 
     /**
      * Construtor para a classe abstrata Desconto.
      * @param descricao A descrição do desconto.
      */
-    public Desconto(String descricao) {
+    public Descontos(String descricao) {
         this.descricao = descricao;
     }
 
@@ -29,7 +29,7 @@ public abstract class Desconto {
      * @param cliente O cliente associado ao pedido (ICliente do Alex), para lógica de fidelidade.
      * @return O valor após a aplicação do desconto.
      */
-    public abstract double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, ICliente cliente);
+    public abstract double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, Cliente cliente);
 
     /**
      * Método abstrato para verificar se o desconto é elegível.
@@ -37,13 +37,13 @@ public abstract class Desconto {
      * @param cliente O cliente associado ao pedido (ICliente do Alex).
      * @return true se o desconto for elegível, false caso contrário.
      */
-    public abstract boolean isElegivel(List<SubPedido> subpedidos, ICliente cliente);
+    public abstract boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente);
 
     /**
      * Implementação de um desconto baseado em porcentagem.
      * Exemplo: Desconto de 15% no subtotal.
      */
-    public static class DescontoPercentual extends Desconto {
+    public static class DescontoPercentual extends Descontos {
         private double porcentagem;
 
         /**
@@ -62,7 +62,7 @@ public abstract class Desconto {
          * @return O valor com o desconto aplicado.
          */
         @Override
-        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, ICliente cliente) {
+        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, Cliente cliente) {
             return valorOriginal * (1 - porcentagem);
         }
 
@@ -72,7 +72,7 @@ public abstract class Desconto {
          * @return Sempre true para este exemplo simples.
          */
         @Override
-        public boolean isElegivel(List<SubPedido> subpedidos, ICliente cliente) {
+        public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
             return true; // Por simplificação, sempre elegível
         }
     }
@@ -80,7 +80,7 @@ public abstract class Desconto {
     /**
      * Implementação do combo "Compre 2 pizzas e ganhe 1 refrigerante grátis".
      */
-    public static class DescontoComboCompre2PizzasGanhe1Refri extends Desconto {
+    public static class DescontoComboCompre2PizzasGanhe1Refri extends Descontos {
         /**
          * Construtor para DescontoComboCompre2PizzasGanhe1Refri.
          */
@@ -94,7 +94,7 @@ public abstract class Desconto {
          * @return true se o combo for elegível, false caso contrário.
          */
         @Override
-        public boolean isElegivel(List<SubPedido> subpedidos, ICliente cliente) {
+        public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
             long numPizzas = subpedidos.stream()
                     .filter(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()))
                     .mapToInt(SubPedido::getQuantidade)
@@ -114,7 +114,7 @@ public abstract class Desconto {
          * @return O valor com o desconto aplicado.
          */
         @Override
-        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, ICliente cliente) {
+        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, Cliente cliente) {
             if (!isElegivel(subpedidos, cliente)) {
                 return valorOriginal; // Não elegível, não aplica desconto
             }
@@ -133,7 +133,7 @@ public abstract class Desconto {
     /**
      * Implementação do combo "Compre 1 pizza, 1 refrigerante e 1 sobremesa e ganhe um desconto de 15% no subtotal".
      */
-    public static class DescontoComboPizzaRefriSobremesa15Percent extends Desconto {
+    public static class DescontoComboPizzaRefriSobremesa15Percent extends Descontos {
         /**
          * Construtor para DescontoComboPizzaRefriSobremesa15Percent.
          */
@@ -147,7 +147,7 @@ public abstract class Desconto {
          * @return true se o combo for elegível, false caso contrário.
          */
         @Override
-        public boolean isElegivel(List<SubPedido> subpedidos, ICliente cliente) {
+        public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
             boolean temPizza = subpedidos.stream().anyMatch(sp -> "Pizza".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
             boolean temRefri = subpedidos.stream().anyMatch(sp -> "Refrigerante".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
             boolean temSobremesa = subpedidos.stream().anyMatch(sp -> "Sobremesa".equalsIgnoreCase(sp.getItem().getTipo()) && sp.getQuantidade() >= 1);
@@ -161,7 +161,7 @@ public abstract class Desconto {
          * @return O valor com o desconto aplicado.
          */
         @Override
-        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, ICliente cliente) {
+        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, Cliente cliente) {
             if (!isElegivel(subpedidos, cliente)) {
                 return valorOriginal; // Não elegível, não aplica desconto
             }
@@ -172,7 +172,7 @@ public abstract class Desconto {
     /**
      * Implementação do programa de fidelidade "A cada 5 pizzas compradas, o cliente ganha 1 gratuita".
      */
-    public static class DescontoFidelidade5PizzasGratis extends Desconto {
+    public static class DescontoFidelidade5PizzasGratis extends Descontos {
         /**
          * Construtor para DescontoFidelidade5PizzasGratis.
          */
@@ -188,7 +188,7 @@ public abstract class Desconto {
          * @return true se o desconto for elegível, false caso contrário.
          */
         @Override
-        public boolean isElegivel(List<SubPedido> subpedidos, ICliente cliente) {
+        public boolean isElegivel(List<SubPedido> subpedidos, Cliente cliente) {
             if (cliente == null) {
                 return false; // Não há cliente para verificar fidelidade
             }
@@ -210,7 +210,7 @@ public abstract class Desconto {
          * @return O valor com o desconto aplicado.
          */
         @Override
-        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, ICliente cliente) {
+        public double aplicaDesconto(double valorOriginal, List<SubPedido> subpedidos, Cliente cliente) {
             if (!isElegivel(subpedidos, cliente)) {
                 return valorOriginal;
             }

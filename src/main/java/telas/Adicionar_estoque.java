@@ -1,3 +1,5 @@
+package telas;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -7,12 +9,12 @@
  *
  * @author malu
  */
-public class Adicionar_item extends javax.swing.JPanel {
+public class Adicionar_estoque extends javax.swing.JPanel {
 
     /**
      * Creates new form cadastrar_cliente
      */
-    public Adicionar_item() {
+    public Adicionar_estoque() {
         initComponents();
     }
 
@@ -27,12 +29,9 @@ public class Adicionar_item extends javax.swing.JPanel {
 
         codigo_item = new javax.swing.JTextField();
         Quantidade = new javax.swing.JTextField();
-        Preco = new javax.swing.JTextField();
         voltar = new javax.swing.JButton();
         adicionar_item = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Ingredientes = new javax.swing.JTextPane();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setPreferredSize(new java.awt.Dimension(1134, 624));
@@ -47,13 +46,6 @@ public class Adicionar_item extends javax.swing.JPanel {
         Quantidade.setText("Quantidade");
         Quantidade.setToolTipText("");
 
-        Preco.setText("Preco");
-        Preco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PrecoActionPerformed(evt);
-            }
-        });
-
         voltar.setText("voltar");
 
         adicionar_item.setText("adicionar");
@@ -64,9 +56,6 @@ public class Adicionar_item extends javax.swing.JPanel {
                 NomeActionPerformed(evt);
             }
         });
-
-        Ingredientes.setText("Ingredientes");
-        jScrollPane1.setViewportView(Ingredientes);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,12 +70,10 @@ public class Adicionar_item extends javax.swing.JPanel {
                         .addGap(99, 99, 99)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Preco, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))))
-                .addContainerGap(132, Short.MAX_VALUE))
+                            .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -99,19 +86,11 @@ public class Adicionar_item extends javax.swing.JPanel {
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Preco, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addComponent(adicionar_item)
-                .addGap(83, 83, 83))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void PrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PrecoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PrecoActionPerformed
 
     private void codigo_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigo_itemActionPerformed
         // TODO add your handling code here:
@@ -123,13 +102,10 @@ public class Adicionar_item extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextPane Ingredientes;
     private javax.swing.JTextField Nome;
-    private javax.swing.JTextField Preco;
     private javax.swing.JTextField Quantidade;
     private javax.swing.JButton adicionar_item;
     private javax.swing.JTextField codigo_item;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

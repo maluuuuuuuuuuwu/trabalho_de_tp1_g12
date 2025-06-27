@@ -35,14 +35,13 @@
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="adicionar_item" min="-2" pref="117" max="-2" attributes="0"/>
                           <Component id="Preco" alignment="0" max="32767" attributes="0"/>
-                          <Component id="Quantidade" alignment="0" max="32767" attributes="0"/>
                           <Component id="codigo_item" alignment="0" max="32767" attributes="0"/>
                           <Component id="Nome" alignment="0" pref="253" max="32767" attributes="0"/>
                           <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="132" max="32767" attributes="0"/>
+              <EmptySpace pref="109" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -55,15 +54,13 @@
               <Component id="codigo_item" min="-2" pref="49" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="Nome" min="-2" pref="49" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="Quantidade" min="-2" pref="49" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="Preco" min="-2" pref="49" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="124" max="-2" attributes="0"/>
-              <EmptySpace pref="72" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="adicionar_item" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+              <EmptySpace pref="55" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -76,12 +73,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="codigo_itemActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="Quantidade">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Quantidade"/>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="Preco">
       <Properties>

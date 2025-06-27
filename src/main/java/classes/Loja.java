@@ -17,7 +17,18 @@ public class Loja {
     private List<Desconto> lista_descontos = new ArrayList<>();
     private final String endereco = "UnB, campus Darcy Ribeiro, ICC Norte, subsolo modulo 9, linf 3";
     private List<Cliente> lista_clientes = new ArrayList<>();
+    private List<Item> itens_oferecidos = new ArrayList<>();
 
+    public List<Item> getItens_oferecidos() {
+        return itens_oferecidos;
+    }
+
+    public void addItemOferecido(Item item){
+        if (item != null) {
+            itens_oferecidos.add(item);
+        }
+    }
+    
     public void addItemEstoque(String item) {
         if (item != null && !item.trim().isEmpty()) {
             estoque.add(item);
@@ -118,5 +129,18 @@ public class Loja {
         }
     }
     
+    public boolean removerItemOferecido(Item item) {
+        if (item != null) {
+            return itens_oferecidos.remove(item);
+        }
+        return false;
+    }
+
+    public boolean removerItemEstoque(String nomeItem) {
+        if (nomeItem != null && !nomeItem.trim().isEmpty()) {
+            return estoque.remove(nomeItem);
+        }
+        return false;
+    }
     
 }

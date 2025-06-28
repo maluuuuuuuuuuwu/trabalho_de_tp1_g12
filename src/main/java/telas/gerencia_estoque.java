@@ -1,5 +1,9 @@
 package telas;
 
+import classes.ItemEstoque;
+import classes.Loja;
+import javax.swing.table.DefaultTableModel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,12 +14,14 @@ package telas;
  * @author malu
  */
 public class gerencia_estoque extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form gerencia_estoque
      */
-    public gerencia_estoque() {
+    public gerencia_estoque(Loja loja) {
+        this.loja = loja;
         initComponents();
+        carregarEstoqueNaTabela();
     }
 
     /**
@@ -27,20 +33,12 @@ public class gerencia_estoque extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        voltar = new javax.swing.JButton();
         adicionar_item = new javax.swing.JButton();
         remover_item = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(0, 0, 0));
-
-        voltar.setText("voltar");
-        voltar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                voltarActionPerformed(evt);
-            }
-        });
 
         adicionar_item.setText("Adicionar item");
         adicionar_item.addActionListener(new java.awt.event.ActionListener() {
@@ -122,8 +120,7 @@ public class gerencia_estoque extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(308, 308, 308)
+                        .addGap(444, 444, 444)
                         .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,35 +130,43 @@ public class gerencia_estoque extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void voltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_voltarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_voltarActionPerformed
-
     private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
-        // TODO add your handling code here:
+        new Adicionar_estoque(loja).setVisible(true);
     }//GEN-LAST:event_adicionar_itemActionPerformed
+    private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        new remover_estoque(loja).setVisible(true);
+    }     
+    
+    private void carregarEstoqueNaTabela() {
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"Nome", "Codigo", "Quantidade"}, 0);
 
+        for (ItemEstoque item : loja.getEstoque()) {
+            model.addRow(new Object[]{
+                item.getNome(),
+                item.getCodigo(),
+                item.getQuantidade()
+            });
+        }
+
+        jTable1.setModel(model);
+    }
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionar_item;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JButton remover_item;
-    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,5 +1,7 @@
 package telas;
 
+import classes.Loja;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,11 +12,12 @@ package telas;
  * @author malu
  */
 public class cadastrar_cliente extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_cliente() {
+    public cadastrar_cliente(Loja loja) {
+        this.loja = loja;
         initComponents();
     }
 
@@ -81,7 +84,7 @@ public class cadastrar_cliente extends javax.swing.JPanel {
                                 .addComponent(endereco)
                                 .addComponent(cpf)
                                 .addComponent(Nome)))))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

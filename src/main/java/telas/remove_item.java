@@ -1,6 +1,6 @@
 package telas;
 
-import classes.ItemEstoque;
+import classes.Item;
 import classes.Loja;
 
 /*
@@ -12,12 +12,12 @@ import classes.Loja;
  *
  * @author malu
  */
-public class remover_estoque extends javax.swing.JPanel {
+public class remove_item extends javax.swing.JPanel {
     private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public remover_estoque(Loja loja) {
+    public remove_item(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -32,6 +32,7 @@ public class remover_estoque extends javax.swing.JPanel {
     private void initComponents() {
 
         codigo_item = new javax.swing.JTextField();
+        voltar = new javax.swing.JButton();
         remover_item = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
 
@@ -44,6 +45,8 @@ public class remover_estoque extends javax.swing.JPanel {
                 codigo_itemActionPerformed(evt);
             }
         });
+
+        voltar.setText("voltar");
 
         remover_item.setText("Remover");
         remover_item.addActionListener(new java.awt.event.ActionListener() {
@@ -59,24 +62,31 @@ public class remover_estoque extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(codigo_item)
-                        .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(codigo_item)
+                                .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(100, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
+                .addContainerGap()
+                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addComponent(codigo_item, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(remover_item)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -85,9 +95,9 @@ public class remover_estoque extends javax.swing.JPanel {
     }//GEN-LAST:event_codigo_itemActionPerformed
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
-        for(ItemEstoque itens : loja.getEstoque()){
-            if(itens.getNome().equals(Nome.getText())){
-                loja.removerItemEstoque(itens);
+        for(Item item : loja.getItens_oferecidos()){
+            if(item.getnome().equals(Nome.getText())){
+                loja.removerItemOferecido(item);
             }
         }
     }//GEN-LAST:event_remover_itemActionPerformed
@@ -97,5 +107,6 @@ public class remover_estoque extends javax.swing.JPanel {
     private javax.swing.JTextField Nome;
     private javax.swing.JTextField codigo_item;
     private javax.swing.JButton remover_item;
+    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

@@ -18,6 +18,8 @@ public class Loja {
     private List<Cliente> lista_clientes = new ArrayList<>();
     private List<Item> itens_oferecidos = new ArrayList<>();
 
+    public void Loja(){}
+    
     public List<Item> getItens_oferecidos() {
         return itens_oferecidos;
     }

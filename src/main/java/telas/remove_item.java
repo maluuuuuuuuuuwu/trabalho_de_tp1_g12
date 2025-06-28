@@ -1,5 +1,8 @@
 package telas;
 
+import classes.Item;
+import classes.Loja;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,11 +13,12 @@ package telas;
  * @author malu
  */
 public class remove_item extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public remove_item() {
+    public remove_item(Loja loja) {
+        this.loja = loja;
         initComponents();
     }
 
@@ -91,7 +95,11 @@ public class remove_item extends javax.swing.JPanel {
     }//GEN-LAST:event_codigo_itemActionPerformed
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
-        // TODO add your handling code here:
+        for(Item item : loja.getItens_oferecidos()){
+            if(item.getnome().equals(Nome.getText())){
+                loja.removerItemOferecido(item);
+            }
+        }
     }//GEN-LAST:event_remover_itemActionPerformed
 
 

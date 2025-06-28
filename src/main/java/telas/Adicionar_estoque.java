@@ -1,5 +1,8 @@
 package telas;
 
+import classes.ItemEstoque;
+import classes.Loja;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,11 +13,12 @@ package telas;
  * @author malu
  */
 public class Adicionar_estoque extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public Adicionar_estoque() {
+    public Adicionar_estoque(Loja loja) {
+        this.loja = loja;
         initComponents();
     }
 
@@ -29,7 +33,6 @@ public class Adicionar_estoque extends javax.swing.JPanel {
 
         codigo_item = new javax.swing.JTextField();
         Quantidade = new javax.swing.JTextField();
-        voltar = new javax.swing.JButton();
         adicionar_item = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
 
@@ -46,8 +49,6 @@ public class Adicionar_estoque extends javax.swing.JPanel {
         Quantidade.setText("Quantidade");
         Quantidade.setToolTipText("");
 
-        voltar.setText("voltar");
-
         adicionar_item.setText("adicionar");
 
         Nome.setText("Nome");
@@ -62,25 +63,18 @@ public class Adicionar_estoque extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))))
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addGap(99, 99, 99)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addContainerGap(782, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(90, 90, 90)
                 .addComponent(codigo_item, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -88,7 +82,7 @@ public class Adicionar_estoque extends javax.swing.JPanel {
                 .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(adicionar_item)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(300, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -100,12 +94,16 @@ public class Adicionar_estoque extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomeActionPerformed
 
+    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {
+        int quantidade = Integer.parseInt(Quantidade.getText());
+        ItemEstoque item = new ItemEstoque(Nome.getText(), codigo_item.getText(),quantidade);
+        loja.addItemEstoque(item);
+    } 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Nome;
     private javax.swing.JTextField Quantidade;
     private javax.swing.JButton adicionar_item;
     private javax.swing.JTextField codigo_item;
-    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

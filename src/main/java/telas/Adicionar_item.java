@@ -1,4 +1,10 @@
 package telas;
+
+import classes.Loja;
+import classes.Item;
+import java.util.List;
+import java.util.Arrays;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -9,11 +15,12 @@ package telas;
  * @author malu
  */
 public class Adicionar_item extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public Adicionar_item() {
+    public Adicionar_item(Loja loja) {
+        this.loja = loja;
         initComponents();
     }
 
@@ -115,7 +122,20 @@ public class Adicionar_item extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomeActionPerformed
 
-
+    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        double preco = Double.parseDouble(Preco.getText());
+        String ingredientesText = Ingredientes.getText().trim();
+        List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
+            
+        Item item = new Item(
+                Nome.getText(),
+                ingredientes,
+                preco, 
+                loja
+        );
+        loja.addItemOferecido(item);
+    }  
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane Ingredientes;
     private javax.swing.JTextField Nome;

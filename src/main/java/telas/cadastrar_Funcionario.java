@@ -1,5 +1,8 @@
 package telas;
 
+import classes.Funcionarios;
+import classes.Loja;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
@@ -10,11 +13,12 @@ package telas;
  * @author malu
  */
 public class cadastrar_Funcionario extends javax.swing.JPanel {
-
+    private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_Funcionario() {
+    public cadastrar_Funcionario(Loja loja) {
+        this.loja = loja;
         initComponents();
     }
 
@@ -31,7 +35,6 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
         endereco = new javax.swing.JTextField();
         telefone = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
-        voltar = new javax.swing.JButton();
         cadastrar = new javax.swing.JButton();
         Nome = new javax.swing.JTextField();
         Funcao = new javax.swing.JTextField();
@@ -62,8 +65,6 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
 
         senha.setText("jPasswordField1");
 
-        voltar.setText("voltar");
-
         cadastrar.setText("cadastrar");
 
         Nome.setText("Nome");
@@ -80,29 +81,22 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(senha)
-                                .addComponent(endereco)
-                                .addComponent(cpf)
-                                .addComponent(Nome)
-                                .addComponent(telefone)
-                                .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(154, Short.MAX_VALUE))
+                .addGap(141, 141, 141)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(senha)
+                        .addComponent(endereco)
+                        .addComponent(cpf)
+                        .addComponent(Nome)
+                        .addComponent(telefone)
+                        .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(740, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(50, 50, 50)
+                .addGap(88, 88, 88)
                 .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -116,7 +110,7 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cadastrar)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -136,7 +130,19 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_FuncaoActionPerformed
 
-
+    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {          
+        this.loja = loja;
+        Funcionarios funcionario = new Funcionarios(
+            Funcao.getText(),
+            cpf.getText(), 
+            endereco.getText(), 
+            telefone.getText(),
+            Nome.getText(), 
+            new String(senha.getPassword())
+        );
+        loja.addFuncionario(funcionario);
+    }     
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Funcao;
     private javax.swing.JTextField Nome;
@@ -145,6 +151,5 @@ public class cadastrar_Funcionario extends javax.swing.JPanel {
     private javax.swing.JTextField endereco;
     private javax.swing.JPasswordField senha;
     private javax.swing.JTextField telefone;
-    private javax.swing.JButton voltar;
     // End of variables declaration//GEN-END:variables
 }

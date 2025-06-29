@@ -4,6 +4,9 @@
 
 package com.mycompany.projetotp1;
 
+import classes.Loja;
+import telas.tela_inicial;
+
 /**
  *
  * @author malu
@@ -11,6 +14,7 @@ package com.mycompany.projetotp1;
 public class Projetotp1 {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        Loja loja = new Loja();
+        new tela_inicial(loja).setVisible(true);
     }
 }

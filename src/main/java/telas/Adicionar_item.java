@@ -63,6 +63,11 @@ public class Adicionar_item extends javax.swing.JFrame {
         voltar.setText("voltar");
 
         adicionar_item.setText("adicionar");
+        adicionar_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionar_itemActionPerformed(evt);
+            }
+        });
 
         Nome.setText("Nome");
         Nome.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +152,7 @@ public class Adicionar_item extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomeActionPerformed
 
-    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {                                             
+    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
         double preco = Double.parseDouble(Preco.getText());
         String ingredientesText = Ingredientes.getText().trim();
         List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
@@ -159,7 +164,8 @@ public class Adicionar_item extends javax.swing.JFrame {
                 loja
         );
         loja.addItemOferecido(item);
-    }  
+    }//GEN-LAST:event_adicionar_itemActionPerformed
+
     
     /**
      * @param args the command line arguments

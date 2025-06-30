@@ -4,6 +4,8 @@
  */
 package telas;
 
+import classes.Cliente;
+import classes.Funcionarios;
 import classes.Loja;
 
 /**
@@ -64,6 +66,11 @@ public class cadastrar_cliente extends javax.swing.JFrame {
         voltar.setText("voltar");
 
         cadastrar.setText("cadastrar");
+        cadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrarActionPerformed(evt);
+            }
+        });
 
         Nome.setText("Nome");
 
@@ -139,6 +146,18 @@ public class cadastrar_cliente extends javax.swing.JFrame {
     private void telefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefoneActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_telefoneActionPerformed
+
+    private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
+        this.loja = loja;
+        Cliente funcionario = new Cliente(
+            cpf.getText(), 
+            endereco.getText(), 
+            telefone.getText(),
+            Nome.getText(), 
+            new String(senha.getPassword())
+        );
+        loja.addCliente(funcionario);
+    }//GEN-LAST:event_cadastrarActionPerformed
 
     /**
      * @param args the command line arguments

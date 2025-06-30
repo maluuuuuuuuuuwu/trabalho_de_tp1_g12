@@ -52,6 +52,11 @@ public class Adicionar_estoque extends javax.swing.JFrame {
         Quantidade.setToolTipText("");
 
         adicionar_item.setText("adicionar");
+        adicionar_item.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adicionar_itemActionPerformed(evt);
+            }
+        });
 
         Nome.setText("Nome");
         Nome.addActionListener(new java.awt.event.ActionListener() {
@@ -119,11 +124,12 @@ public class Adicionar_estoque extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NomeActionPerformed
 
-    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {
-        int quantidade = Integer.parseInt(Quantidade.getText());
-        ItemEstoque item = new ItemEstoque(Nome.getText(), codigo_item.getText(),quantidade);
-        loja.addItemEstoque(item);
-    } 
+    private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
+        int quantidade = Integer.parseInt(Quantidade.getText().trim());
+        ItemEstoque item = new ItemEstoque(Nome.getText().trim(), codigo_item.getText().trim(),quantidade);
+        this.loja.addItemEstoque(item);
+    }//GEN-LAST:event_adicionar_itemActionPerformed
+
     
     /**
      * @param args the command line arguments

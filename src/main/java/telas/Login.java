@@ -15,8 +15,8 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public Login(Loja loja) {
-        this.loja = loja;
+    public Login() {
+        //this.loja = loja;
         initComponents();
     }
 
@@ -119,7 +119,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        new tela_inicial(loja).setVisible(true);
+        //new tela_inicial(loja).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

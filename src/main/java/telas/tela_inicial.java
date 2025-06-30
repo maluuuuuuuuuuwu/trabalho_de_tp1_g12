@@ -167,19 +167,19 @@ public class tela_inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_clienteActionPerformed
-        new cadastrar_cliente(loja).setVisible(true);
+        new cadastrar_cliente(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_clienteActionPerformed
 
     private void cadastrar_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_funcionarioActionPerformed
-        new cadastrar_Funcionario(loja).setVisible(true);
+        new cadastrar_Funcionario(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_funcionarioActionPerformed
 
     private void cadastrar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_itemActionPerformed
-        new gerencia_estoque(loja).setVisible(true);
+        new gerencia_estoque(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_itemActionPerformed
 
     private void adicionar_pizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_pizzaActionPerformed
-        new Adicionar_item(loja).setVisible(true);
+        new Adicionar_item(this.loja).setVisible(true);
     }//GEN-LAST:event_adicionar_pizzaActionPerformed
 
     private void adicionar_discontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_discontoActionPerformed

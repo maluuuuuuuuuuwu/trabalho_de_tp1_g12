@@ -1,5 +1,5 @@
 import classes.Loja;
-import telas.tela_inicial;
+import telas.Tela_inicial;
 
 /**
  *
@@ -8,6 +8,6 @@ import telas.tela_inicial;
 public class TP1 {
     public static void main(String[] args) {
         Loja loja = new Loja();
-        new tela_inicial(loja).setVisible(true);
+        new Tela_inicial(loja).setVisible(true);
     }
 }

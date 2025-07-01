@@ -9,7 +9,7 @@ package classes;
  * 
  * @author malu
  */
-public class Funcionarios extends Pessoa {
+public class Funcionarios extends Pessoa implements Usuario_interface{
     private String funcao;
 
     /**

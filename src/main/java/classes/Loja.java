@@ -1,24 +1,34 @@
 package classes;
 
-import java.beans.PropertyChangeSupport;
 import java.beans.PropertyChangeListener;
-import java.util.List;
+import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.List;
 
-// Classe que representa uma loja com gerenciamento de estoque, clientes, pedidos, funcionários e descontos.
-// author malu
+/**
+ * Classe que representa uma loja com gerenciamento de estoque, clientes, pedidos, funcionários e descontos.
+ * 
+ * author malu
+ */
 public class Loja {
     private List<ItemEstoque> estoque = new ArrayList<>();
     private List<Funcionarios> lista_funcionarios = new ArrayList<>();
     private List<Pedido> lista_pedidos = new ArrayList<>();
     private List<Descontos> lista_descontos = new ArrayList<>();
-    private final String endereco = "UnB, campus Darcy Ribeiro, ICC Norte, subsolo modulo 9, linf 3";
     private List<Cliente> lista_clientes = new ArrayList<>();
     private List<Item> itens_oferecidos = new ArrayList<>();
+
+    /**
+     * Lista unificada de usuários do sistema (clientes e funcionários).
+     * Utilizada para login e listagem genérica de usuários.
+     */
+    private List<Usuario_interface> lista_usuarios = new ArrayList<>();
+
+    private final String endereco = "UnB, campus Darcy Ribeiro, ICC Norte, subsolo modulo 9, linf 3";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Construtor padrão da classe Loja (nota: esse método deveria ser um construtor de fato, sem 'void').
+     * Construtor padrão da classe Loja.
      * Entrada: nenhuma  
      * Saída: objeto Loja com listas vazias
      */
@@ -34,76 +44,12 @@ public class Loja {
     }
 
     /**
-    * Verifica se existe um cadastro com o CPF e senha fornecidos.
-    * Entrada: cpf (String), senha (String)
-    * Saída: true se existir um cliente ou funcionário com essas credenciais, false caso contrário
-    */
-    /**
-     * Verifica se as credenciais são válidas e retorna o tipo de usuário
-     * @param cpf CPF do usuário
-     * @param senha Senha do usuário
-     * @return "cliente" se for cliente, "funcionario" se for funcionário, null se inválido
-     */
-    public String verificarCredenciais(String cpf, String senha) {
-        if (cpf == null || senha == null || cpf.trim().isEmpty() || senha.trim().isEmpty()) {
-            return null;
-        }
-
-        for (Cliente cliente : lista_clientes) {
-            if (cliente.getCpf().equals(cpf)) {
-                if (cliente.getSenha().equals(senha)) {
-                    return "cliente";
-                }
-                return null; // CPF existe mas senha incorreta
-            }
-        }
-
-        for (Funcionarios funcionario : lista_funcionarios) {
-            if (funcionario.getCpf().equals(cpf)) {
-                if (funcionario.getSenha().equals(senha)) {
-                    return "funcionario";
-                }
-                return null; 
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Método simplificado para verificação básica (mantido para compatibilidade)
-     */
-    public boolean verificarCadastro(String cpf, String senha) {
-        return verificarCredenciais(cpf, senha) != null;
-    }
-    
-    /**
      * Remove um ouvinte de mudanças de propriedade.  
      * Entrada: listener (PropertyChangeListener)  
      * Saída: nenhuma
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
-    }
-
-    /**
-     * Retorna a lista de itens oferecidos pela loja.  
-     * Entrada: nenhuma  
-     * Saída: lista de Item
-     */
-    public List<Item> getItens_oferecidos() {
-        return itens_oferecidos;
-    }
-
-    /**
-     * Adiciona um item à lista de itens oferecidos.  
-     * Entrada: item (Item)  
-     * Saída: nenhuma
-     */
-    public void addItemOferecido(Item item){
-        if (item != null) {
-            itens_oferecidos.add(item);
-        }
     }
 
     /**
@@ -119,24 +65,37 @@ public class Loja {
     }
 
     /**
-     * Adiciona um cliente à lista de clientes.  
+     * Adiciona um item à lista de itens oferecidos.  
+     * Entrada: item (Item)  
+     * Saída: nenhuma
+     */
+    public void addItemOferecido(Item item) {
+        if (item != null) {
+            itens_oferecidos.add(item);
+        }
+    }
+
+    /**
+     * Adiciona um cliente à lista de clientes e à lista unificada de usuários.  
      * Entrada: cliente (Cliente)  
      * Saída: nenhuma
      */
     public void addCliente(Cliente cliente) {
         if (cliente != null) {
             lista_clientes.add(cliente);
+            lista_usuarios.add(cliente);
         }
     }
 
     /**
-     * Adiciona um funcionário à lista de funcionários.  
+     * Adiciona um funcionário à lista de funcionários e à lista unificada de usuários.  
      * Entrada: funcionario (Funcionarios)  
      * Saída: nenhuma
      */
     public void addFuncionario(Funcionarios funcionario) {
         if (funcionario != null) {
             lista_funcionarios.add(funcionario);
+            lista_usuarios.add(funcionario);
         }
     }
 
@@ -208,6 +167,15 @@ public class Loja {
     }
 
     /**
+     * Retorna a lista de itens oferecidos pela loja.  
+     * Entrada: nenhuma  
+     * Saída: lista de Item
+     */
+    public List<Item> getItens_oferecidos() {
+        return new ArrayList<>(itens_oferecidos);
+    }
+
+    /**
      * Retorna o endereço fixo da loja.  
      * Entrada: nenhuma  
      * Saída: String com o endereço
@@ -217,13 +185,44 @@ public class Loja {
     }
 
     /**
+     * Verifica se as credenciais são válidas e retorna o tipo de usuário (cliente ou funcionário).  
+     * Entrada: cpf (String), senha (String)  
+     * Saída: "cliente", "funcionario" ou null se inválido
+     */
+    public String verificarCredenciais(String cpf, String senha) {
+        if (cpf == null || senha == null || cpf.trim().isEmpty() || senha.trim().isEmpty()) {
+            return null;
+        }
+
+        for (Usuario_interface usuario : lista_usuarios) {
+            if (usuario.getCpf().equals(cpf)) {
+                if (usuario.getSenha().equals(senha)) {
+                    return (usuario instanceof Cliente) ? "cliente" : "funcionario";
+                }
+                return null; // CPF existe, mas senha incorreta
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Método simplificado para verificação básica (mantido para compatibilidade).  
+     * Entrada: cpf (String), senha (String)  
+     * Saída: true se o cadastro é válido, false caso contrário
+     */
+    public boolean verificarCadastro(String cpf, String senha) {
+        return verificarCredenciais(cpf, senha) != null;
+    }
+
+    /**
      * Cadastra um novo cliente a partir de dados fornecidos.  
      * Entrada: cpf, endereco, telefone, nome, senha (todos String)  
      * Saída: nenhuma
      */
     public void cadastrarCliente(String cpf, String endereco, String telefone, String nome, String senha) {
         Cliente cliente = new Cliente(cpf, endereco, telefone, nome, senha);
-        lista_clientes.add(cliente);
+        addCliente(cliente);
     }
 
     /**
@@ -233,7 +232,7 @@ public class Loja {
      */
     public void cadastrarFuncionario(String cpf, String funcao, String endereco, String telefone, String nome, String senha) {
         Funcionarios funcionario = new Funcionarios(funcao, cpf, endereco, telefone, nome, senha);
-        lista_funcionarios.add(funcionario);
+        addFuncionario(funcionario);
     }
 
     /**
@@ -303,6 +302,18 @@ public class Loja {
                 item.setQuantidade(item.getQuantidade() - 1);
                 break;
             }
+        }
+    }
+
+    /**
+     * Exibe informações de todos os usuários cadastrados (clientes e funcionários).  
+     * Entrada: nenhuma  
+     * Saída: nenhuma (apenas imprime no console)
+     */
+    public void exibirTodosUsuarios() {
+        for (Usuario_interface usuario : lista_usuarios) {
+            usuario.exibirInformacoes();
+            System.out.println("---------------");
         }
     }
 }

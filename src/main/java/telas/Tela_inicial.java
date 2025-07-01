@@ -10,12 +10,12 @@ import classes.Loja;
  *
  * @author malu
  */
-public class tela_inicial extends javax.swing.JFrame {
+public class Tela_inicial extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form tela_inicial
      */
-    public tela_inicial(Loja loja) {
+    public Tela_inicial(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -36,7 +36,6 @@ public class tela_inicial extends javax.swing.JFrame {
         cadastrar_item = new javax.swing.JButton();
         realizar_pedido = new javax.swing.JButton();
         adicionar_disconto = new javax.swing.JButton();
-        adicionar_pizza = new javax.swing.JButton();
         Menu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,14 +88,6 @@ public class tela_inicial extends javax.swing.JFrame {
             }
         });
 
-        adicionar_pizza.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        adicionar_pizza.setText("Adicionar item");
-        adicionar_pizza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                adicionar_pizzaActionPerformed(evt);
-            }
-        });
-
         Menu.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         Menu.setText("Menu");
         Menu.addActionListener(new java.awt.event.ActionListener() {
@@ -110,30 +101,19 @@ public class tela_inicial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(248, 248, 248)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(248, 248, 248)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(cadastrar_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cadastrar_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(adicionar_disconto, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                        .addGap(118, 118, 118)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(cadastrar_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cadastrar_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(adicionar_disconto, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(118, 118, 118)
-                                            .addComponent(cadastrar_funcionario))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(adicionar_pizza, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(118, 118, 118)
-                                        .addComponent(realizar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(449, 449, 449)
-                        .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cadastrar_funcionario, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(realizar_pedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(278, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -151,11 +131,9 @@ public class tela_inicial extends javax.swing.JFrame {
                     .addComponent(cadastrar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(82, 82, 82)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(adicionar_pizza, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(adicionar_disconto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
-                .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29))
+                    .addComponent(adicionar_disconto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -175,20 +153,16 @@ public class tela_inicial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastrar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_clienteActionPerformed
-        new cadastrar_cliente(this.loja).setVisible(true);
+        new Cadastrar_cliente(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_clienteActionPerformed
 
     private void cadastrar_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_funcionarioActionPerformed
-        new cadastrar_Funcionario(this.loja).setVisible(true);
+        new Cadastrar_Funcionario(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_funcionarioActionPerformed
 
     private void cadastrar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_itemActionPerformed
         new Login(this.loja, "gerencia_estoque").setVisible(true);
     }//GEN-LAST:event_cadastrar_itemActionPerformed
-
-    private void adicionar_pizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_pizzaActionPerformed
-        new Login(this.loja, "adicionar_item").setVisible(true);
-    }//GEN-LAST:event_adicionar_pizzaActionPerformed
 
     private void realizar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_pedidoActionPerformed
         new Login(this.loja, "pedidos").setVisible(true);
@@ -219,14 +193,16 @@ public class tela_inicial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -241,7 +217,6 @@ public class tela_inicial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Menu;
     private javax.swing.JButton adicionar_disconto;
-    private javax.swing.JButton adicionar_pizza;
     private javax.swing.JButton cadastrar_cliente;
     private javax.swing.JButton cadastrar_funcionario;
     private javax.swing.JButton cadastrar_item;

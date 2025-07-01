@@ -5,7 +5,7 @@
 package com.mycompany.projetotp1;
 
 import classes.Loja;
-import telas.tela_inicial;
+import telas.Tela_inicial;
 
 /**
  *
@@ -15,6 +15,6 @@ public class Projetotp1 {
 
     public static void main(String[] args) {
         Loja loja = new Loja();
-        new tela_inicial(loja).setVisible(true);
+        new Tela_inicial(loja).setVisible(true);
     }
 }

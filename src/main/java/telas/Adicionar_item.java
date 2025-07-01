@@ -87,9 +87,9 @@ public class Adicionar_item extends javax.swing.JFrame {
                     .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Preco, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING))
-                .addContainerGap(782, Short.MAX_VALUE))
+                    .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,28 +104,18 @@ public class Adicionar_item extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(adicionar_item)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(94, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 543, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -145,27 +135,74 @@ public class Adicionar_item extends javax.swing.JFrame {
 
     private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
         try {
-            if (Nome.getText().isEmpty() || Preco.getText().isEmpty() || Ingredientes.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos!");
+            // Obtém os valores dos campos e remove espaços extras
+            String nome = Nome.getText().trim();
+            String precoStr = Preco.getText().trim();
+            String ingredientesText = Ingredientes.getText().trim();
+
+            // Validação 1: Verifica campos vazios
+            if (nome.isEmpty() || precoStr.isEmpty() || ingredientesText.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Todos os campos são obrigatórios! Preencha corretamente.", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
                 return;
             }
 
-            double preco = Double.parseDouble(Preco.getText());
-            String ingredientesText = Ingredientes.getText().trim();
-            List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
+            // Validação 2: Verifica se o preço é um número válido e positivo
+            double preco;
+            try {
+                preco = Double.parseDouble(precoStr);
+                if (preco <= 0) {
+                    JOptionPane.showMessageDialog(
+                        this, 
+                        "O preço deve ser maior que zero!", 
+                        "Erro", 
+                        JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Formato de preço inválido! Use números (ex: 12.50).", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
 
+            // Validação 3: Verifica se há ingredientes válidos (separados por vírgula)
+            List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
+            if (ingredientes.isEmpty() || ingredientes.get(0).isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Insira pelo menos um ingrediente (separados por vírgula).", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Se todas as validações passarem, cria o item
             Item item = new Item(
-                    Nome.getText(),
-                    ingredientes,
-                    preco, 
-                    this.loja
+                nome,
+                ingredientes,
+                preco, 
+                this.loja
             );
             this.loja.addItemOferecido(item);
-            dispose();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor, insira um preço válido!");
+            dispose(); // Fecha a janela após adicionar
+
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocorreu um erro: " + e.getMessage());
+            JOptionPane.showMessageDialog(
+                this, 
+                "Erro inesperado: " + e.getMessage(), 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
         }
     }//GEN-LAST:event_adicionar_itemActionPerformed
 

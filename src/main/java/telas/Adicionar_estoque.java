@@ -6,6 +6,7 @@ package telas;
 
 import classes.ItemEstoque;
 import classes.Loja;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -73,10 +74,10 @@ public class Adicionar_estoque extends javax.swing.JFrame {
                 .addGap(99, 99, 99)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Quantidade, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                     .addComponent(codigo_item, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
-                .addContainerGap(782, Short.MAX_VALUE))
+                    .addComponent(Nome, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,27 +90,25 @@ public class Adicionar_estoque extends javax.swing.JFrame {
                 .addComponent(Quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addComponent(adicionar_item)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
+            .addGap(0, 515, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
+            .addGap(0, 453, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 0, Short.MAX_VALUE)))
         );
 
@@ -125,10 +124,60 @@ public class Adicionar_estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_NomeActionPerformed
 
     private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
-        int quantidade = Integer.parseInt(Quantidade.getText().trim());
-        ItemEstoque item = new ItemEstoque(Nome.getText().trim(), codigo_item.getText().trim(),quantidade);
-        this.loja.addItemEstoque(item);
-        dispose();
+        // Obtém os valores dos campos e remove espaços em branco
+        String nome = Nome.getText().trim();
+        String codigo = codigo_item.getText().trim();
+        String quantidadeStr = Quantidade.getText().trim();
+
+        // Validação 1: Verifica se algum campo está vazio
+        if (nome.isEmpty() || codigo.isEmpty() || quantidadeStr.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Todos os campos são obrigatórios! Preencha corretamente.", 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
+            return; // Impede a execução se algum campo estiver vazio
+        }
+
+        // Validação 2: Verifica se o código contém apenas letras e números (opcional)
+        if (!codigo.matches("[a-zA-Z0-9]+")) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "O código do item deve conter apenas letras e números!", 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Validação 3: Verifica se a quantidade é um número válido e > 0
+        try {
+            int quantidade = Integer.parseInt(quantidadeStr);
+
+            if (quantidade <= 0) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "A quantidade deve ser maior que zero!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Se todas as validações passarem, cria o item e adiciona ao estoque
+            ItemEstoque item = new ItemEstoque(nome, codigo, quantidade);
+            this.loja.addItemEstoque(item);
+            dispose(); // Fecha a janela após adicionar
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "A quantidade deve ser um número válido (ex: 10, 200)!", 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_adicionar_itemActionPerformed
 
     

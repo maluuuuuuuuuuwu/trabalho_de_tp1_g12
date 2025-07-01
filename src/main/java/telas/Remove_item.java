@@ -6,17 +6,19 @@ package telas;
 
 import classes.Item;
 import classes.Loja;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author malu
  */
-public class remove_item extends javax.swing.JFrame {
+public class Remove_item extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public remove_item(Loja loja) {
+    public Remove_item(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -67,7 +69,7 @@ public class remove_item extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(codigo_item)
                         .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(782, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,28 +80,18 @@ public class remove_item extends javax.swing.JFrame {
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(remover_item)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -110,12 +102,45 @@ public class remove_item extends javax.swing.JFrame {
     }//GEN-LAST:event_codigo_itemActionPerformed
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
-        for(Item item : loja.getItens_oferecidos()){
-            if(item.getNome().equals(Nome.getText())){
-                loja.removerItemOferecido(item);
+        try {
+            String nomeItem = Nome.getText().trim();
+
+            // Validation 1: Check if name is empty
+            if (nomeItem.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "O nome do item não pode estar vazio!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+                return;
             }
+
+            boolean itemEncontrado = false;
+
+            // Iterate through items safely
+            for (Item item : new ArrayList<>(loja.getItens_oferecidos())) {
+                if (item.getNome().equalsIgnoreCase(nomeItem)) {
+                    loja.removerItemOferecido(item);
+                    itemEncontrado = true;
+                }
+            }
+
+            // Validation 2: Check if item was found
+            if (!itemEncontrado) {
+                JOptionPane.showMessageDialog(this, 
+                    "Item não encontrado: " + nomeItem, 
+                    "Aviso", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            dispose(); // Only close if removal was successful
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                "Erro ao remover item: " + e.getMessage(), 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE);
         }
-        dispose();
     }//GEN-LAST:event_remover_itemActionPerformed
 
     /**
@@ -135,14 +160,16 @@ public class remove_item extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remove_item.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

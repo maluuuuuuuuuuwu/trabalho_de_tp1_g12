@@ -7,17 +7,18 @@ package telas;
 import classes.Cliente;
 import classes.Funcionarios;
 import classes.Loja;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author malu
  */
-public class cadastrar_cliente extends javax.swing.JFrame {
+public class Cadastrar_cliente extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_cliente(Loja loja) {
+    public Cadastrar_cliente(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -76,17 +77,16 @@ public class cadastrar_cliente extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(141, 141, 141)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                            .addComponent(telefone)
-                            .addComponent(endereco)
-                            .addComponent(cpf)
-                            .addComponent(Nome))))
-                .addContainerGap(740, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
+                        .addComponent(telefone)
+                        .addComponent(endereco)
+                        .addComponent(cpf)
+                        .addComponent(Nome)))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,28 +103,22 @@ public class cadastrar_cliente extends javax.swing.JFrame {
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50)
                 .addComponent(cadastrar)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(75, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 508, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 571, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -139,16 +133,78 @@ public class cadastrar_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_telefoneActionPerformed
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
-        this.loja = loja;
-        Cliente funcionario = new Cliente(
-            cpf.getText(), 
-            endereco.getText(), 
-            telefone.getText(),
-            Nome.getText(), 
-            new String(senha.getPassword())
-        );
-        loja.addCliente(funcionario);
-        dispose();
+        try {
+            // Obtém os valores dos campos
+            String cpfText = cpf.getText().trim();
+            String enderecoText = endereco.getText().trim();
+            String telefoneText = telefone.getText().trim();
+            String nome = Nome.getText().trim();
+            String senhaText = new String(senha.getPassword()).trim();
+
+            // Validação 1: Verifica campos vazios
+            if (cpfText.isEmpty() || enderecoText.isEmpty() || telefoneText.isEmpty() || 
+                nome.isEmpty() || senhaText.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Todos os campos são obrigatórios!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 2: Telefone válido (formato básico)
+            if (!telefoneText.matches("^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}[\\s-]?\\d{4}$")) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Telefone inválido! Use o formato (DD)XXXX-XXXX.", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 3: Nome não pode conter números
+            if (nome.matches(".*\\d.*")) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "O nome não pode conter números!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 4: Senha mínima de 6 caracteres
+            if (senhaText.length() < 6) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "A senha deve ter no mínimo 6 caracteres!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Se tudo estiver válido, cria o cliente
+            Cliente cliente = new Cliente(
+                cpfText, 
+                enderecoText, 
+                telefoneText,
+                nome, 
+                senhaText
+            );
+            loja.addCliente(cliente);
+            dispose();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Erro inesperado: " + e.getMessage(), 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_cadastrarActionPerformed
 
     /**
@@ -168,14 +224,16 @@ public class cadastrar_cliente extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_cliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

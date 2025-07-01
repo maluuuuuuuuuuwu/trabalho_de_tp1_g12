@@ -22,7 +22,7 @@ public class Loja {
      * Lista unificada de usuários do sistema (clientes e funcionários).
      * Utilizada para login e listagem genérica de usuários.
      */
-    private List<Usuario_interface> lista_usuarios = new ArrayList<>();
+    private List<Usuario_Interface> lista_usuarios = new ArrayList<>();
 
     private final String endereco = "UnB, campus Darcy Ribeiro, ICC Norte, subsolo modulo 9, linf 3";
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -195,7 +195,7 @@ public class Loja {
             return null;
         }
 
-        for (Usuario_interface usuario : lista_usuarios) {
+        for (Usuario_Interface usuario : lista_usuarios) {
             if (usuario.getCpf().equals(cpf)) {
                 if (usuario.getSenha().equals(senha)) {
                     return (usuario instanceof Cliente) ? "cliente" : "funcionario";
@@ -306,15 +306,4 @@ public class Loja {
         }
     }
 
-    /**
-     * Exibe informações de todos os usuários cadastrados (clientes e funcionários).  
-     * Entrada: nenhuma  
-     * Saída: nenhuma (apenas imprime no console)
-     */
-    public void exibirTodosUsuarios() {
-        for (Usuario_interface usuario : lista_usuarios) {
-            usuario.exibirInformacoes();
-            System.out.println("---------------");
-        }
-    }
 }

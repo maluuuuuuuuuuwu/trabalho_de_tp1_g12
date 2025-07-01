@@ -6,17 +6,20 @@ package telas;
 
 import classes.ItemEstoque;
 import classes.Loja;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author malu
  */
-public class remover_estoque extends javax.swing.JFrame {
+public class Remover_estoque extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public remover_estoque(Loja loja) {
+    public Remover_estoque(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -67,7 +70,7 @@ public class remover_estoque extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(codigo_item)
                         .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(782, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,28 +81,20 @@ public class remover_estoque extends javax.swing.JFrame {
                 .addComponent(Nome, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(49, 49, 49)
                 .addComponent(remover_item)
-                .addContainerGap(346, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -110,12 +105,58 @@ public class remover_estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_codigo_itemActionPerformed
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
-        for(ItemEstoque itens : loja.getEstoque()){
-            if(itens.getNome().equals(Nome.getText())){
-                loja.removerItemEstoque(itens);
+        try {
+            // Get and validate input
+            String itemName = Nome.getText().trim();
+
+            if (itemName.isEmpty()) {
+                JOptionPane.showMessageDialog(this, 
+                    "Por favor, informe o nome do item a ser removido!",
+                    "Campo Vazio", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
             }
+
+            // Create a copy to avoid concurrent modification
+            List<ItemEstoque> inventoryCopy = new ArrayList<>(loja.getEstoque());
+            boolean itemFound = false;
+            int removedCount = 0;
+
+            // Search and remove items
+            for (ItemEstoque item : inventoryCopy) {
+                if (item.getNome().equalsIgnoreCase(itemName)) {
+                    loja.removerItemEstoque(item);
+                    itemFound = true;
+                    removedCount++;
+                }
+            }
+
+            // Show appropriate feedback
+            if (!itemFound) {
+                JOptionPane.showMessageDialog(this,
+                    "Item não encontrado no estoque: " + itemName,
+                    "Não Encontrado",
+                    JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                String message = removedCount > 1 ? 
+                    removedCount + " itens removidos com sucesso!" :
+                    "1 item removido com sucesso!";
+
+                JOptionPane.showMessageDialog(this,
+                    message,
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+                dispose(); // Only close if successful
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this,
+                "Erro ao remover item: " + e.getMessage(),
+                "Erro Crítico",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace(); // Log the error for debugging
         }
-        dispose();
     }//GEN-LAST:event_remover_itemActionPerformed
 
     /**
@@ -135,14 +176,16 @@ public class remover_estoque extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Remover_estoque.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

@@ -2,6 +2,9 @@ package telas;
 
 import classes.Funcionarios;
 import classes.Loja;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -12,12 +15,12 @@ import classes.Loja;
  *
  * @author malu
  */
-public class cadastrar_Funcionario extends javax.swing.JFrame {
+public class Cadastrar_Funcionario extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form cadastrar_cliente
      */
-    public cadastrar_Funcionario(Loja loja) {
+    public Cadastrar_Funcionario(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -99,7 +102,7 @@ public class cadastrar_Funcionario extends javax.swing.JFrame {
                         .addComponent(Nome)
                         .addComponent(telefone)
                         .addComponent(Funcao, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,28 +121,18 @@ public class cadastrar_Funcionario extends javax.swing.JFrame {
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cadastrar)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1134, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 624, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 583, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -162,17 +155,81 @@ public class cadastrar_Funcionario extends javax.swing.JFrame {
     }//GEN-LAST:event_FuncaoActionPerformed
 
     private void cadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarActionPerformed
-        this.loja = loja;
-        Funcionarios funcionario = new Funcionarios(
-            Funcao.getText(),
-            cpf.getText(), 
-            endereco.getText(), 
-            telefone.getText(),
-            Nome.getText(), 
-            new String(senha.getPassword())
-        );
-        loja.addFuncionario(funcionario);
-        dispose();
+        try {
+            // Obtém os valores dos campos
+            String funcao = Funcao.getText().trim();
+            String cpfText = cpf.getText().trim();
+            String enderecoText = endereco.getText().trim();
+            String telefoneText = telefone.getText().trim();
+            String nome = Nome.getText().trim();
+            String senhaText = new String(senha.getPassword()).trim();
+
+            // Validação 1: Verifica campos vazios
+            if (funcao.isEmpty() || cpfText.isEmpty() || enderecoText.isEmpty() || 
+                telefoneText.isEmpty() || nome.isEmpty() || senhaText.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Todos os campos são obrigatórios! Preencha corretamente.", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 3: Telefone válido (mínimo 10 dígitos, com DDD)
+            if (!telefoneText.matches("^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}[\\s-]?\\d{4}$")) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Telefone inválido! Use o formato (DD)XXXX-XXXX ou (DD)XXXXX-XXXX.", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 4: Senha segura (mínimo 6 caracteres)
+            if (senhaText.length() < 6) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "A senha deve ter no mínimo 6 caracteres!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Validação 5: Função válida (exemplo: lista pré-definida)
+            List<String> funcoesValidas = Arrays.asList("Gerente", "Vendedor", "Caixa");
+            if (!funcoesValidas.contains(funcao)) {
+                JOptionPane.showMessageDialog(
+                    this, 
+                    "Função inválida! Escolha entre: Gerente, Vendedor ou Caixa.", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE
+                );
+                return;
+            }
+
+            // Se todas as validações passarem, cria o funcionário
+            Funcionarios funcionario = new Funcionarios(
+                funcao,
+                cpfText, 
+                enderecoText, 
+                telefoneText,
+                nome, 
+                senhaText
+            );
+            loja.addFuncionario(funcionario);
+            dispose(); // Fecha a janela após adicionar
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(
+                this, 
+                "Erro inesperado: " + e.getMessage(), 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE
+            );
+        }
     }//GEN-LAST:event_cadastrarActionPerformed
 
     /**
@@ -192,14 +249,16 @@ public class cadastrar_Funcionario extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cadastrar_Funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

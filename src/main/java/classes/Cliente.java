@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 
  * @author alexb
  */
-public class Cliente extends Pessoa implements Usuario_interface{
+public class Cliente extends Pessoa implements Usuario_Interface{
     private List<Pedido> pedidos = new ArrayList<>();
     private int pizzasCompradas;
 

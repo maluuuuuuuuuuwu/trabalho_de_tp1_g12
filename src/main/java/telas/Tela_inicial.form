@@ -47,39 +47,21 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
+                  <EmptySpace min="-2" pref="248" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel1" min="-2" pref="638" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="248" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel1" min="-2" pref="638" max="-2" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="cadastrar_item" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="cadastrar_cliente" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="adicionar_disconto" alignment="1" pref="260" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                                              <Component id="cadastrar_funcionario" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="adicionar_pizza" min="-2" pref="260" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
-                                          <Component id="realizar_pedido" min="-2" pref="260" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="cadastrar_item" alignment="1" max="32767" attributes="0"/>
+                              <Component id="cadastrar_cliente" alignment="1" max="32767" attributes="0"/>
+                              <Component id="adicionar_disconto" alignment="1" pref="260" max="32767" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="449" max="-2" attributes="0"/>
-                          <Component id="Menu" min="-2" pref="260" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="118" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cadastrar_funcionario" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="realizar_pedido" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                              <Component id="Menu" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <EmptySpace pref="278" max="32767" attributes="0"/>
@@ -103,12 +85,10 @@
                   </Group>
                   <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="adicionar_pizza" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="adicionar_disconto" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                      <Component id="Menu" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
-                  <Component id="Menu" min="-2" pref="46" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                  <EmptySpace pref="126" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -180,17 +160,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionar_discontoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="adicionar_pizza">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Liberation Sans" size="24" style="0"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Adicionar item"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adicionar_pizzaActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Menu">

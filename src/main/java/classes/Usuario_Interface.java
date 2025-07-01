@@ -8,7 +8,7 @@ package classes;
  *
  * @author malu
  */
-public interface Usuario_interface {
+public interface Usuario_Interface {
     String getCpf();
     String getSenha();
     void exibirInformacoes();  

@@ -8,6 +8,7 @@ import classes.DescontoFixo;
 import classes.DescontoPorcentagem;
 import classes.DescontoQuantidade;
 import classes.Loja;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -45,7 +46,7 @@ public class Descontos extends javax.swing.JFrame {
 
         jToggleButton1.setText("jToggleButton1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
         valor.setText("valor");
@@ -163,20 +164,76 @@ public class Descontos extends javax.swing.JFrame {
     }//GEN-LAST:event_descricaoActionPerformed
 
     private void adicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionarActionPerformed
-        String desc = descricao.getText();
-        double valorDouble = Double.parseDouble(valor.getText());
+        try {
+            // Validação dos campos básicos
+            String desc = descricao.getText().trim();
+            String valorText = valor.getText().trim();
 
-        if (DescontoPorcentagem.isSelected()) {
-            double percentual = valorDouble / 100.0;
-            loja.addDesconto(new DescontoPorcentagem(desc, percentual));
+            if (desc.isEmpty() || valorText.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Descrição e valor são obrigatórios!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        } else if (DescontoFixo.isSelected()) {
-            loja.addDesconto(new DescontoFixo(desc, valorDouble));
+            // Validação do valor numérico
+            double valorDouble;
+            try {
+                valorDouble = Double.parseDouble(valorText);
+                if (valorDouble <= 0) {
+                    JOptionPane.showMessageDialog(this, "O valor deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Valor inválido! Digite um número válido.", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-        } else if (DescontoQuantidade.isSelected()) {
-            int quantidadeMinima = Integer.parseInt(Quantidade_minima.getText());
-            double percentual = valorDouble / 100.0;
-            loja.addDesconto(new DescontoQuantidade(desc, quantidadeMinima, percentual));
+            // Validações específicas para cada tipo de desconto
+            if (DescontoPorcentagem.isSelected()) {
+                if (valorDouble > 100) {
+                    JOptionPane.showMessageDialog(this, "Porcentagem não pode ser maior que 100%!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                double percentual = valorDouble / 100.0;
+                loja.addDesconto(new DescontoPorcentagem(desc, percentual));
+
+            } else if (DescontoFixo.isSelected()) {
+                loja.addDesconto(new DescontoFixo(desc, valorDouble));
+
+            } else if (DescontoQuantidade.isSelected()) {
+                String quantidadeText = Quantidade_minima.getText().trim();
+                if (quantidadeText.isEmpty()) {
+                    JOptionPane.showMessageDialog(this, "Quantidade mínima é obrigatória!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                try {
+                    int quantidadeMinima = Integer.parseInt(quantidadeText);
+                    if (quantidadeMinima <= 0) {
+                        JOptionPane.showMessageDialog(this, "Quantidade mínima deve ser maior que zero!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    if (valorDouble > 100) {
+                        JOptionPane.showMessageDialog(this, "Porcentagem não pode ser maior que 100%!", "Erro", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+
+                    double percentual = valorDouble / 100.0;
+                    loja.addDesconto(new DescontoQuantidade(desc, quantidadeMinima, percentual));
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Quantidade inválida! Digite um número inteiro.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Selecione um tipo de desconto!", "Erro", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            dispose(); // Fecha a janela após cadastro bem-sucedido
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro inesperado: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_adicionarActionPerformed
 

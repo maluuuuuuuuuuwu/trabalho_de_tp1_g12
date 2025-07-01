@@ -23,26 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="1134" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-          </Group>
+          <Component id="jPanel1" min="-2" pref="481" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="624" max="32767" attributes="0"/>
-          <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-          </Group>
+          <Component id="jPanel1" min="-2" pref="543" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -66,10 +52,10 @@
                       <Component id="adicionar_item" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                       <Component id="Preco" alignment="0" max="32767" attributes="0"/>
                       <Component id="codigo_item" alignment="0" max="32767" attributes="0"/>
-                      <Component id="Nome" alignment="0" pref="253" max="32767" attributes="0"/>
-                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Nome" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" pref="253" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="782" max="32767" attributes="0"/>
+                  <EmptySpace pref="129" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -86,7 +72,7 @@
                   <Component id="jScrollPane1" min="-2" pref="124" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="adicionar_item" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="175" max="32767" attributes="0"/>
+                  <EmptySpace pref="94" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

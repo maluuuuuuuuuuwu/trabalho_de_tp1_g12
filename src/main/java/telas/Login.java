@@ -38,7 +38,7 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         senha = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Login");
 
@@ -150,7 +150,7 @@ public class Login extends javax.swing.JFrame {
         private void abrirTelaDestino() {
         switch(telaDestino) {
             case "gerencia_estoque":
-                new gerencia_estoque(loja).setVisible(true);
+                new Gerencia_estoque(loja).setVisible(true);
                 break;
             case "adicionar_item":
                 new Adicionar_item(loja).setVisible(true);
@@ -161,8 +161,11 @@ public class Login extends javax.swing.JFrame {
             case "Descontos":
                 new Descontos(loja).setVisible(true);
                 break;
+            case "Remove_item":
+                new Remove_item(loja).setVisible(true);
+                break;
             default:
-                new tela_inicial(loja).setVisible(true);
+                new Tela_inicial(loja).setVisible(true);
         }
     }
     

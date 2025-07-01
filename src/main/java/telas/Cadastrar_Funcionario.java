@@ -62,7 +62,7 @@ public class Cadastrar_Funcionario extends javax.swing.JFrame {
             }
         });
 
-        telefone.setText("Telefone");
+        telefone.setText("(DD)XXXX-XXXX");
         telefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefoneActionPerformed(evt);
@@ -192,18 +192,6 @@ public class Cadastrar_Funcionario extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(
                     this, 
                     "A senha deve ter no mínimo 6 caracteres!", 
-                    "Erro", 
-                    JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
-
-            // Validação 5: Função válida (exemplo: lista pré-definida)
-            List<String> funcoesValidas = Arrays.asList("Gerente", "Vendedor", "Caixa");
-            if (!funcoesValidas.contains(funcao)) {
-                JOptionPane.showMessageDialog(
-                    this, 
-                    "Função inválida! Escolha entre: Gerente, Vendedor ou Caixa.", 
                     "Erro", 
                     JOptionPane.ERROR_MESSAGE
                 );

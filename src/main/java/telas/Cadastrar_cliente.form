@@ -57,8 +57,8 @@
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="cadastrar" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="senha" alignment="0" pref="253" max="32767" attributes="0"/>
-                          <Component id="telefone" alignment="0" max="32767" attributes="0"/>
+                          <Component id="senha" alignment="0" max="32767" attributes="0"/>
+                          <Component id="telefone" alignment="0" pref="253" max="32767" attributes="0"/>
                           <Component id="endereco" alignment="0" max="32767" attributes="0"/>
                           <Component id="cpf" alignment="0" max="32767" attributes="0"/>
                           <Component id="Nome" alignment="0" max="32767" attributes="0"/>
@@ -104,7 +104,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="telefone">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Telefone"/>
+            <Property name="text" type="java.lang.String" value="(DD)XXXX-XXXX"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="telefoneActionPerformed"/>

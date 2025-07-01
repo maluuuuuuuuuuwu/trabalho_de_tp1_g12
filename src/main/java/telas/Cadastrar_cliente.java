@@ -54,7 +54,7 @@ public class Cadastrar_cliente extends javax.swing.JFrame {
 
         endereco.setText("Endereco");
 
-        telefone.setText("Telefone");
+        telefone.setText("(DD)XXXX-XXXX");
         telefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 telefoneActionPerformed(evt);
@@ -81,8 +81,8 @@ public class Cadastrar_cliente extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(senha, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                        .addComponent(telefone)
+                        .addComponent(senha)
+                        .addComponent(telefone, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
                         .addComponent(endereco)
                         .addComponent(cpf)
                         .addComponent(Nome)))

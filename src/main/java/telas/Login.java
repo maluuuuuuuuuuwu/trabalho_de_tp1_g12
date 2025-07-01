@@ -158,7 +158,8 @@ public class Login extends javax.swing.JFrame {
             case "pedidos":
                 new Pedidos().setVisible(true);
                 break;
-            case "adicionar_desconto":
+            case "Descontos":
+                new Descontos(loja).setVisible(true);
                 break;
             default:
                 new tela_inicial(loja).setVisible(true);

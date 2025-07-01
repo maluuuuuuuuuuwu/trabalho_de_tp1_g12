@@ -56,7 +56,7 @@ public class Item {
      * 
      * @return String com o nome
      */
-    public String getnome() {
+    public String getNome() {
         return nome;
     }
 
@@ -111,4 +111,5 @@ public class Item {
             }
         }
     }
+
 }

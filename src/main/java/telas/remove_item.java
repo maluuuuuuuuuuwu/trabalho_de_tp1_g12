@@ -111,7 +111,7 @@ public class remove_item extends javax.swing.JFrame {
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
         for(Item item : loja.getItens_oferecidos()){
-            if(item.getnome().equals(Nome.getText())){
+            if(item.getNome().equals(Nome.getText())){
                 loja.removerItemOferecido(item);
             }
         }

@@ -8,6 +8,7 @@ import classes.Item;
 import classes.Loja;
 import java.util.Arrays;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +17,7 @@ import java.util.List;
 public class Adicionar_item extends javax.swing.JFrame {
     private Loja loja;
     /**
-     * Creates new form cadastrar_cliente
+     * Creates new form 
      */
     public Adicionar_item(Loja loja) {
         this.loja = loja;
@@ -143,19 +144,29 @@ public class Adicionar_item extends javax.swing.JFrame {
     }//GEN-LAST:event_NomeActionPerformed
 
     private void adicionar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_itemActionPerformed
-        double preco = Double.parseDouble(Preco.getText());
-        String ingredientesText = Ingredientes.getText().trim();
-        List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
-            
-        Item item = new Item(
-                Nome.getText(),
-                ingredientes,
-                preco, 
-                loja
-        );
-        loja.addItemOferecido(item);
-        dispose();
+        try {
+            if (Nome.getText().isEmpty() || Preco.getText().isEmpty() || Ingredientes.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos!");
+                return;
+            }
 
+            double preco = Double.parseDouble(Preco.getText());
+            String ingredientesText = Ingredientes.getText().trim();
+            List<String> ingredientes = Arrays.asList(ingredientesText.split("\\s*,\\s*"));
+
+            Item item = new Item(
+                    Nome.getText(),
+                    ingredientes,
+                    preco, 
+                    this.loja
+            );
+            this.loja.addItemOferecido(item);
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor, insira um preço válido!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocorreu um erro: " + e.getMessage());
+        }
     }//GEN-LAST:event_adicionar_itemActionPerformed
 
     

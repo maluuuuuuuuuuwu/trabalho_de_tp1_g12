@@ -72,6 +72,7 @@ public class Loja {
     public void addItemOferecido(Item item) {
         if (item != null) {
             itens_oferecidos.add(item);
+            support.firePropertyChange("itens_oferecidos", null, item);
         }
     }
 

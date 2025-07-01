@@ -129,6 +129,7 @@ public class Login extends javax.swing.JFrame {
                     "Acesso restrito! Clientes só podem realizar pedidos.", 
                     "Acesso Negado", 
                     JOptionPane.WARNING_MESSAGE);
+                dispose();
                 return;
             }
             

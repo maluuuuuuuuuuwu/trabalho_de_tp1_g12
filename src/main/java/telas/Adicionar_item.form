@@ -61,21 +61,13 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="voltar" min="-2" pref="115" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="adicionar_item" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
-                              <Component id="Preco" alignment="0" max="32767" attributes="0"/>
-                              <Component id="codigo_item" alignment="0" max="32767" attributes="0"/>
-                              <Component id="Nome" alignment="0" pref="253" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
+                  <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="adicionar_item" alignment="1" min="-2" pref="117" max="-2" attributes="0"/>
+                      <Component id="Preco" alignment="0" max="32767" attributes="0"/>
+                      <Component id="codigo_item" alignment="0" max="32767" attributes="0"/>
+                      <Component id="Nome" alignment="0" pref="253" max="32767" attributes="0"/>
+                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="782" max="32767" attributes="0"/>
               </Group>
@@ -84,9 +76,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Component id="voltar" min="-2" pref="32" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                   <Component id="codigo_item" min="-2" pref="49" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="Nome" min="-2" pref="49" max="-2" attributes="0"/>
@@ -117,11 +107,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PrecoActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="voltar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="voltar"/>
-          </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="adicionar_item">
           <Properties>

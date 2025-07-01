@@ -4,7 +4,9 @@
  */
 package telas;
 
+import classes.Cliente;
 import classes.Loja;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +14,11 @@ import classes.Loja;
  */
 public class Login extends javax.swing.JFrame {
     private Loja loja;
-    /**
-     * Creates new form Login
-     */
-    public Login(Loja loja) {
+    private String telaDestino;
+    
+    public Login(Loja loja, String telaDestino) {
         this.loja = loja;
+        this.telaDestino = telaDestino;
         initComponents();
     }
 
@@ -116,16 +118,53 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_cpfActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(loja.verificarCadastro(cpf.getText(), senha.getText())){
-            new gerencia_estoque(this.loja).setVisible(true);
+        String CPF = cpf.getText();
+        String Senha = senha.getText();
+       
+        String tipoUsuario = loja.verificarCredenciais(CPF, Senha);
+        
+        if (tipoUsuario != null) {
+            if (tipoUsuario.equals("cliente") && !telaDestino.equals("pedidos")) {
+                JOptionPane.showMessageDialog(this, 
+                    "Acesso restrito! Clientes só podem realizar pedidos.", 
+                    "Acesso Negado", 
+                    JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            
+            abrirTelaDestino();
             dispose();
-        }
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "CPF ou senha incorretos!", 
+                "Erro de Login", 
+                JOptionPane.ERROR_MESSAGE);
+        }      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaActionPerformed
 
+        private void abrirTelaDestino() {
+        switch(telaDestino) {
+            case "gerencia_estoque":
+                new gerencia_estoque(loja).setVisible(true);
+                break;
+            case "adicionar_item":
+                new Adicionar_item(loja).setVisible(true);
+                break;
+            case "pedidos":
+                new Pedidos().setVisible(true);
+                break;
+            case "adicionar_desconto":
+                break;
+            default:
+                new tela_inicial(loja).setVisible(true);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */

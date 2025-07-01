@@ -38,20 +38,43 @@ public class Loja {
     * Entrada: cpf (String), senha (String)
     * Saída: true se existir um cliente ou funcionário com essas credenciais, false caso contrário
     */
-    public boolean verificarCadastro(String cpf, String senha) {
+    /**
+     * Verifica se as credenciais são válidas e retorna o tipo de usuário
+     * @param cpf CPF do usuário
+     * @param senha Senha do usuário
+     * @return "cliente" se for cliente, "funcionario" se for funcionário, null se inválido
+     */
+    public String verificarCredenciais(String cpf, String senha) {
+        if (cpf == null || senha == null || cpf.trim().isEmpty() || senha.trim().isEmpty()) {
+            return null;
+        }
+
         for (Cliente cliente : lista_clientes) {
-            if (cliente.getCpf().equals(cpf) && cliente.getSenha().equals(senha)) {
-                return true;
+            if (cliente.getCpf().equals(cpf)) {
+                if (cliente.getSenha().equals(senha)) {
+                    return "cliente";
+                }
+                return null; // CPF existe mas senha incorreta
             }
         }
 
         for (Funcionarios funcionario : lista_funcionarios) {
-            if (funcionario.getCpf().equals(cpf) && funcionario.getSenha().equals(senha)) {
-                return true;
+            if (funcionario.getCpf().equals(cpf)) {
+                if (funcionario.getSenha().equals(senha)) {
+                    return "funcionario";
+                }
+                return null; 
             }
         }
 
-        return false;
+        return null;
+    }
+
+    /**
+     * Método simplificado para verificação básica (mantido para compatibilidade)
+     */
+    public boolean verificarCadastro(String cpf, String senha) {
+        return verificarCredenciais(cpf, senha) != null;
     }
     
     /**

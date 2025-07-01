@@ -175,7 +175,7 @@ public class tela_inicial extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrar_funcionarioActionPerformed
 
     private void cadastrar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_itemActionPerformed
-        new gerencia_estoque(this.loja).setVisible(true);
+        new Login(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_itemActionPerformed
 
     private void adicionar_pizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_pizzaActionPerformed

@@ -34,6 +34,27 @@ public class Loja {
     }
 
     /**
+    * Verifica se existe um cadastro com o CPF e senha fornecidos.
+    * Entrada: cpf (String), senha (String)
+    * Saída: true se existir um cliente ou funcionário com essas credenciais, false caso contrário
+    */
+    public boolean verificarCadastro(String cpf, String nome) {
+        for (Cliente cliente : lista_clientes) {
+            if (cliente.getCpf().equals(cpf) && cliente.getNome().equals(nome)) {
+                return true;
+            }
+        }
+
+        for (Funcionarios funcionario : lista_funcionarios) {
+            if (funcionario.getCpf().equals(cpf) && funcionario.getNome().equals(nome)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    
+    /**
      * Remove um ouvinte de mudanças de propriedade.  
      * Entrada: listener (PropertyChangeListener)  
      * Saída: nenhuma

@@ -164,6 +164,8 @@ public class Adicionar_item extends javax.swing.JFrame {
                 loja
         );
         loja.addItemOferecido(item);
+        dispose();
+
     }//GEN-LAST:event_adicionar_itemActionPerformed
 
     

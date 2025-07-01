@@ -38,15 +38,15 @@ public class Loja {
     * Entrada: cpf (String), senha (String)
     * Saída: true se existir um cliente ou funcionário com essas credenciais, false caso contrário
     */
-    public boolean verificarCadastro(String cpf, String nome) {
+    public boolean verificarCadastro(String cpf, String senha) {
         for (Cliente cliente : lista_clientes) {
-            if (cliente.getCpf().equals(cpf) && cliente.getNome().equals(nome)) {
+            if (cliente.getCpf().equals(cpf) && cliente.getSenha().equals(senha)) {
                 return true;
             }
         }
 
         for (Funcionarios funcionario : lista_funcionarios) {
-            if (funcionario.getCpf().equals(cpf) && funcionario.getNome().equals(nome)) {
+            if (funcionario.getCpf().equals(cpf) && funcionario.getSenha().equals(senha)) {
                 return true;
             }
         }

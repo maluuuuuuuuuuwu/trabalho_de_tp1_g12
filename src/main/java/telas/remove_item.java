@@ -125,6 +125,7 @@ public class remove_item extends javax.swing.JFrame {
                 loja.removerItemOferecido(item);
             }
         }
+        dispose();
     }//GEN-LAST:event_remover_itemActionPerformed
 
     /**

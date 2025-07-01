@@ -128,6 +128,7 @@ public class Adicionar_estoque extends javax.swing.JFrame {
         int quantidade = Integer.parseInt(Quantidade.getText().trim());
         ItemEstoque item = new ItemEstoque(Nome.getText().trim(), codigo_item.getText().trim(),quantidade);
         this.loja.addItemEstoque(item);
+        dispose();
     }//GEN-LAST:event_adicionar_itemActionPerformed
 
     

@@ -115,6 +115,7 @@ public class remover_estoque extends javax.swing.JFrame {
                 loja.removerItemEstoque(itens);
             }
         }
+        dispose();
     }//GEN-LAST:event_remover_itemActionPerformed
 
     /**

@@ -172,6 +172,7 @@ public class cadastrar_Funcionario extends javax.swing.JFrame {
             new String(senha.getPassword())
         );
         loja.addFuncionario(funcionario);
+        dispose();
     }//GEN-LAST:event_cadastrarActionPerformed
 
     /**

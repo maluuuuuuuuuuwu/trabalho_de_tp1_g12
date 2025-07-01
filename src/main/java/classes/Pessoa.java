@@ -5,12 +5,12 @@
 package classes;
 
 /**
- * Classe que representa uma pessoa genérica com informações básicas como CPF, 
+ * Classe abstrata que representa uma pessoa genérica com informações básicas como CPF, 
  * endereço, telefone, nome e senha.
  * 
  * @author malu
  */
-public class Pessoa {
+public abstract class Pessoa {
     protected String cpf;
     protected String endereco;
     protected String telefone;
@@ -127,4 +127,11 @@ public class Pessoa {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    /**
+     * Método abstrato que deve ser implementado pelas subclasses para exibir informações específicas da pessoa.
+     * Entrada: nenhuma
+     * Saída: nenhuma
+     */
+    public abstract void exibirInformacoes();
 }

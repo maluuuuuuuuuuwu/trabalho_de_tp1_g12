@@ -5,22 +5,32 @@
 package classes;
 import java.util.List;
 import java.util.ArrayList;
+
 /**
- *
+ * Classe que representa um cliente da pizzaria, herdando de Pessoa.
+ * 
  * @author alexb
  */
 public class Cliente extends Pessoa {
-    public List<Pedido> pedido = new ArrayList<>();
+    private List<Pedido> pedidos = new ArrayList<>();
     private int pizzasCompradas;
 
     public Cliente(String cpf, String endereco, String telefone, String nome, String senha) {
         super(cpf, endereco, telefone, nome, senha);
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido.add(pedido);
+    /**
+     * Adiciona um novo pedido à lista do cliente
+     * @param pedido O pedido a ser adicionado
+     */
+    public void adicionarPedido(Pedido pedido) {
+        this.pedidos.add(pedido);
     }
 
+    /**
+     * Incrementa o contador de pizzas compradas
+     * @param quantidade A quantidade de pizzas a adicionar
+     */
     public void adicionarPizzasCompradas(int quantidade) {
         this.pizzasCompradas += quantidade;
     }
@@ -38,48 +48,24 @@ public class Cliente extends Pessoa {
     public void resetarPizzasCompradas() {
         this.pizzasCompradas = this.pizzasCompradas % 5;
     }
-    
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+
+    /**
+     * @return Lista de pedidos do cliente (cópia defensiva)
+     */
+    public List<Pedido> getPedidos() {
+        return new ArrayList<>(pedidos);
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public List<Pedido> getPedido() {
-        return new ArrayList<>(pedido);
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getSenha() {
-        return senha;
+    /**
+     * Implementação do método abstrato para exibir informações do cliente
+     */
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Cliente: " + getNome());
+        System.out.println("CPF: " + getCpf());
+        System.out.println("Endereço: " + getEndereco());
+        System.out.println("Telefone: " + getTelefone());
+        System.out.println("Total de pizzas compradas: " + pizzasCompradas);
+        System.out.println("Total de pedidos: " + pedidos.size());
     }
 }

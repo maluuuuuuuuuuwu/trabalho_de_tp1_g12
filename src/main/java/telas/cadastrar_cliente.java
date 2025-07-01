@@ -157,6 +157,7 @@ public class cadastrar_cliente extends javax.swing.JFrame {
             new String(senha.getPassword())
         );
         loja.addCliente(funcionario);
+        dispose();
     }//GEN-LAST:event_cadastrarActionPerformed
 
     /**

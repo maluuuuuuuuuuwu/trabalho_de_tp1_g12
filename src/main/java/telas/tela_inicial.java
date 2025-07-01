@@ -182,13 +182,13 @@ public class tela_inicial extends javax.swing.JFrame {
         new Login(this.loja, "adicionar_item").setVisible(true);
     }//GEN-LAST:event_adicionar_pizzaActionPerformed
 
-    private void adicionar_discontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_discontoActionPerformed
-        new Login(this.loja, "adicionar_desconto").setVisible(true);
-    }//GEN-LAST:event_adicionar_discontoActionPerformed
-
     private void realizar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_pedidoActionPerformed
         new Login(this.loja, "pedidos").setVisible(true);
     }//GEN-LAST:event_realizar_pedidoActionPerformed
+
+    private void adicionar_discontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_discontoActionPerformed
+        new Login(this.loja, "adicionar_desconto").setVisible(true);
+    }//GEN-LAST:event_adicionar_discontoActionPerformed
 
     /**
      * @param args the command line arguments

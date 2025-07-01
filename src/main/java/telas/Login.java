@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author alexb
+ * @author alexb e malu
  */
 public class Login extends javax.swing.JFrame {
     private Loja loja;

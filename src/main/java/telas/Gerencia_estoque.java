@@ -4,8 +4,10 @@
  */
 package telas;
 
+import classes.Estoque;
 import classes.ItemEstoque;
 import classes.Loja;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,13 +22,10 @@ public class Gerencia_estoque extends javax.swing.JFrame {
     public Gerencia_estoque(Loja loja) {
         this.loja = loja;
         initComponents();
-        carregarEstoqueNaTabela();
-        loja.addPropertyChangeListener(evt -> {
-            if ("estoque".equals(evt.getPropertyName())) {
-                refreshEstoqueTable();
-            }
-        });
+        initializeTable();
+        setupInventoryListener();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -185,16 +184,38 @@ public class Gerencia_estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_remover_itemActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
-        carregarEstoqueNaTabela();
+        refreshEstoqueTable();
     }//GEN-LAST:event_atualizarActionPerformed
     
    
-    private void carregarEstoqueNaTabela() {
-        DefaultTableModel model = new DefaultTableModel(new Object[]{"Nome", "Código", "Quantidade"}, 0);
+    private void initializeTable() {
+        // Set up table model with proper column names
+        DefaultTableModel model = new DefaultTableModel(
+            new Object[]{"Nome", "Código", "Quantidade"}, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make table non-editable
+            }
+        };
+        jTable1.setModel(model);
+        refreshEstoqueTable();
+    }
 
-        model.setRowCount(0);
+    private void setupInventoryListener() {
+        // Add listener to inventory changes
+        this.loja.getEstoque().addPropertyChangeListener(evt -> {
+             if ("estoque".equals(evt.getPropertyName())) {
+                 refreshEstoqueTable();
+             }
+        });
+    }
 
-        for (ItemEstoque item : loja.getEstoque()) {
+    private void refreshEstoqueTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0); // Clear existing data
+
+        // Add all inventory items to the table
+        for (ItemEstoque item : loja.getEstoque().getEstoque()) {
             model.addRow(new Object[]{
                 item.getNome(),
                 item.getCodigo(),
@@ -202,16 +223,12 @@ public class Gerencia_estoque extends javax.swing.JFrame {
             });
         }
 
-        jTable1.setModel(model);
-
+        // Auto-resize columns
         for (int i = 0; i < jTable1.getColumnModel().getColumnCount(); i++) {
             jTable1.getColumnModel().getColumn(i).setPreferredWidth(150);
         }
     }
-    
-    public void refreshEstoqueTable() {
-        carregarEstoqueNaTabela();
-    }
+
     
     static void main(String args[]) {
         /* Set the Nimbus look and feel */

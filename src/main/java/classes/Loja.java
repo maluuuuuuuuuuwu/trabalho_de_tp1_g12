@@ -11,11 +11,10 @@ import java.util.List;
  * author malu
  */
 public class Loja {
-    private List<ItemEstoque> estoque = new ArrayList<>();
-    private List<Funcionarios> lista_funcionarios = new ArrayList<>();
-    private List<Pedido> lista_pedidos = new ArrayList<>();
-    private List<Descontos> lista_descontos = new ArrayList<>();
-    private List<Cliente> lista_clientes = new ArrayList<>();
+    private Estoque estoque = new Estoque();
+    private GerenciadorUsuarios usuarios = new GerenciadorUsuarios();
+    private GerenciadorPedidos lista_pedidos = new GerenciadorPedidos();
+    private GerenciadorDescontos lista_descontos = new GerenciadorDescontos();
     private List<Item> itens_oferecidos = new ArrayList<>();
 
     /**
@@ -34,6 +33,24 @@ public class Loja {
      */
     public Loja() {}
 
+     /**
+     * adiciona um novo item ao estoque.
+     * @param item Item a ser adicionado (não pode ser nulo)
+     * @throws IllegalArgumentException Se o item for nulo
+     */
+    public void addItemEstoque(ItemEstoque item){
+        this.estoque.addItem(item);
+    }
+    
+    /**
+     * Remove um item do estoque.
+     * @param item Item a ser removido
+     * @return true se o item foi removido com sucesso
+     */
+    public boolean removerItemEstoque(ItemEstoque item){
+        return this.estoque.removerItem(item);
+    }
+    
     /**
      * Adiciona um ouvinte para mudanças de propriedade.  
      * Entrada: listener (PropertyChangeListener)  
@@ -50,18 +67,6 @@ public class Loja {
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
-    }
-
-    /**
-     * Adiciona um item ao estoque e notifica ouvintes da mudança.  
-     * Entrada: item (ItemEstoque)  
-     * Saída: nenhuma
-     */
-    public void addItemEstoque(ItemEstoque item) {
-        if (item != null) {
-            estoque.add(item);
-            support.firePropertyChange("estoque", null, item);
-        }
     }
 
     /**
@@ -82,10 +87,7 @@ public class Loja {
      * Saída: nenhuma
      */
     public void addCliente(Cliente cliente) {
-        if (cliente != null) {
-            lista_clientes.add(cliente);
-            lista_usuarios.add(cliente);
-        }
+        usuarios.cadastrarCliente(cliente);
     }
 
     /**
@@ -94,10 +96,7 @@ public class Loja {
      * Saída: nenhuma
      */
     public void addFuncionario(Funcionarios funcionario) {
-        if (funcionario != null) {
-            lista_funcionarios.add(funcionario);
-            lista_usuarios.add(funcionario);
-        }
+        usuarios.cadastrarFuncionario(funcionario);
     }
 
     /**
@@ -106,9 +105,7 @@ public class Loja {
      * Saída: nenhuma
      */
     public void addPedido(Pedido pedido) {
-        if (pedido != null) {
-            lista_pedidos.add(pedido);
-        }
+        lista_pedidos.adicionarPedido(pedido);
     }
 
     /**
@@ -117,9 +114,7 @@ public class Loja {
      * Saída: nenhuma
      */
     public void addDesconto(Descontos desconto) {
-        if (desconto != null) {
-            lista_descontos.add(desconto);
-        }
+        lista_descontos.adicionarDesconto(desconto);
     }
 
     /**
@@ -127,8 +122,8 @@ public class Loja {
      * Entrada: nenhuma  
      * Saída: lista de ItemEstoque
      */
-    public List<ItemEstoque> getEstoque() {
-        return new ArrayList<>(estoque);
+    public Estoque getEstoque() {
+        return estoque;
     }
 
     /**
@@ -137,7 +132,7 @@ public class Loja {
      * Saída: lista de Funcionarios
      */
     public List<Funcionarios> getLista_funcionarios() {
-        return new ArrayList<>(lista_funcionarios);
+        return usuarios.getFuncionarios();
     }
 
     /**
@@ -146,7 +141,7 @@ public class Loja {
      * Saída: lista de Cliente
      */
     public List<Cliente> getLista_clientes() {
-        return new ArrayList<>(lista_clientes);
+        return usuarios.getClientes();
     }
 
     /**
@@ -155,7 +150,7 @@ public class Loja {
      * Saída: lista de Pedido
      */
     public List<Pedido> getLista_pedidos() {
-        return new ArrayList<>(lista_pedidos);
+        return lista_pedidos.getTodosPedidos();
     }
 
     /**
@@ -164,7 +159,11 @@ public class Loja {
      * Saída: lista de Descontos
      */
     public List<Descontos> getLista_descontos() {
-        return new ArrayList<>(lista_descontos);
+        return lista_descontos.getDescontosDisponiveis();
+    }
+    
+    public GerenciadorDescontos getDescontos(){
+        return lista_descontos;
     }
 
     /**
@@ -194,6 +193,9 @@ public class Loja {
         if (cpf == null || senha == null || cpf.trim().isEmpty() || senha.trim().isEmpty()) {
             return null;
         }
+        List<Usuario_Interface> lista_usuarios = new ArrayList<>();
+        lista_usuarios.addAll(usuarios.getClientes());
+        lista_usuarios.addAll(usuarios.getFuncionarios());
 
         for (Usuario_Interface usuario : lista_usuarios) {
             if (usuario.getCpf().equals(cpf)) {
@@ -206,16 +208,7 @@ public class Loja {
 
         return null;
     }
-
-    /**
-     * Método simplificado para verificação básica (mantido para compatibilidade).  
-     * Entrada: cpf (String), senha (String)  
-     * Saída: true se o cadastro é válido, false caso contrário
-     */
-    public boolean verificarCadastro(String cpf, String senha) {
-        return verificarCredenciais(cpf, senha) != null;
-    }
-
+    
     /**
      * Cadastra um novo cliente a partir de dados fornecidos.  
      * Entrada: cpf, endereco, telefone, nome, senha (todos String)  
@@ -223,7 +216,7 @@ public class Loja {
      */
     public void cadastrarCliente(String cpf, String endereco, String telefone, String nome, String senha) {
         Cliente cliente = new Cliente(cpf, endereco, telefone, nome, senha);
-        addCliente(cliente);
+        usuarios.cadastrarCliente(cliente);
     }
 
     /**
@@ -233,7 +226,7 @@ public class Loja {
      */
     public void cadastrarFuncionario(String cpf, String funcao, String endereco, String telefone, String nome, String senha) {
         Funcionarios funcionario = new Funcionarios(funcao, cpf, endereco, telefone, nome, senha);
-        addFuncionario(funcionario);
+        usuarios.cadastrarFuncionario(funcionario);
     }
 
     /**
@@ -242,8 +235,8 @@ public class Loja {
      * Saída: tempo médio (double), -1 se não há funcionários
      */
     public double calcularTempo() {
-        int numeroPedidos = lista_pedidos.size();
-        int numeroFuncionarios = lista_funcionarios.size();
+        int numeroPedidos = lista_pedidos.getTodosPedidos().size();
+        int numeroFuncionarios = usuarios.getFuncionarios().size();
 
         if (numeroFuncionarios == 0) return -1;
 
@@ -281,29 +274,6 @@ public class Loja {
      */
     public boolean removerItemOferecido(Item item) {
         return item != null && itens_oferecidos.remove(item);
-    }
-
-    /**
-     * Remove um item do estoque.  
-     * Entrada: item (ItemEstoque)  
-     * Saída: true se foi removido, false caso contrário
-     */
-    public boolean removerItemEstoque(ItemEstoque item) {
-        return item != null && estoque.remove(item);
-    }
-
-    /**
-     * Diminui em 1 a quantidade de um item no estoque, se ele existir e tiver quantidade maior que 0.  
-     * Entrada: itemName (String)  
-     * Saída: nenhuma
-     */
-    public void removerUmItemEstoque(String itemName) {
-        for (ItemEstoque item : estoque) {
-            if (item.getNome().equals(itemName) && item.getQuantidade() > 0) {
-                item.setQuantidade(item.getQuantidade() - 1);
-                break;
-            }
-        }
     }
 
 }

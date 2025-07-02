@@ -5,7 +5,11 @@ package classes;
  * Representa uma parte de um pedido, associando um item a uma quantidade.
  * Agrega um IItem (interface da Malu).
  */
-class SubPedido {
+/**
+ *
+ * @author malu
+ */
+public class SubPedido {
     public Item item;
     public int quantidade;
 

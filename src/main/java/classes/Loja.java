@@ -161,6 +161,10 @@ public class Loja {
     public List<Descontos> getLista_descontos() {
         return lista_descontos.getDescontosDisponiveis();
     }
+    
+    public GerenciadorDescontos getDescontos(){
+        return lista_descontos;
+    }
 
     /**
      * Retorna a lista de itens oferecidos pela loja.  

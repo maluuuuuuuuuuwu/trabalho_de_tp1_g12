@@ -132,8 +132,14 @@ public class Login extends javax.swing.JFrame {
                 dispose();
                 return;
             }
-            
-            abrirTelaDestino();
+        Cliente cliente = null;
+        for (Cliente c : loja.getLista_clientes()) {
+            if (c.getCpf().equals(CPF) && c.getSenha().equals(Senha)) {
+                cliente = c;
+                break;
+            }
+        }
+            abrirTelaDestino(cliente);
             dispose();
         } else {
             JOptionPane.showMessageDialog(this, 
@@ -147,7 +153,7 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaActionPerformed
 
-        private void abrirTelaDestino() {
+        private void abrirTelaDestino(Cliente cliente) {
         switch(telaDestino) {
             case "gerencia_estoque":
                 new Gerencia_estoque(loja).setVisible(true);
@@ -156,7 +162,7 @@ public class Login extends javax.swing.JFrame {
                 new Adicionar_item(loja).setVisible(true);
                 break;
             case "pedidos":
-                new Pedidos().setVisible(true);
+                new Pedidos(loja,cliente).setVisible(true);
                 break;
             case "Descontos":
                 new Descontos(loja).setVisible(true);

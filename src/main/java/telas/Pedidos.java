@@ -4,16 +4,30 @@
  */
 package telas;
 
+import classes.Cliente;
+import classes.GerenciadorDescontos;
+import classes.Item;
+import classes.Loja;
+import classes.Pedido;
+import classes.SubPedido;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author alexb
  */
 public class Pedidos extends javax.swing.JFrame {
-
+    private Loja loja;
+    private Cliente cliente;
     /**
      * Creates new form Pedidos
      */
-    public Pedidos() {
+    public Pedidos(Loja loja, Cliente cliente) {
+        this.loja = loja;
+        this.cliente = cliente;
         initComponents();
     }
 
@@ -46,8 +60,18 @@ public class Pedidos extends javax.swing.JFrame {
         jLabel1.setText("pedido");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Enviar Pedido");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -57,8 +81,18 @@ public class Pedidos extends javax.swing.JFrame {
         });
 
         jCheckBox2.setText("calabresa");
+        jCheckBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox2ActionPerformed(evt);
+            }
+        });
 
         jCheckBox3.setText("Portuguesa");
+        jCheckBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCheckBox3ActionPerformed(evt);
+            }
+        });
 
         jCheckBox4.setText("Frango");
         jCheckBox4.addActionListener(new java.awt.event.ActionListener() {
@@ -68,6 +102,11 @@ public class Pedidos extends javax.swing.JFrame {
         });
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,12 +162,113 @@ public class Pedidos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        List<SubPedido> itensSelecionados = new ArrayList<>();
+        double total = 0.0;
+
+        if (jCheckBox2.isSelected()) {
+            List<String> ingredientes = List.of("massa", "molho", "calabresa", "queijo");
+            Item item = new Item("Calabresa", ingredientes, 35.0, loja);
+            SubPedido sub = new SubPedido(item, jComboBox1.getSelectedIndex() + 1);
+            itensSelecionados.add(sub);
+            loja.addItemOferecido(item);
+        }
+
+        if (jCheckBox3.isSelected()) {
+            List<String> ingredientes = List.of("massa", "molho", "presunto", "ovo", "ervilha");
+            Item item = new Item("Portuguesa", ingredientes, 38.0, loja);
+            SubPedido sub = new SubPedido(item, jComboBox2.getSelectedIndex() + 1);
+            itensSelecionados.add(sub);
+            loja.addItemOferecido(item);
+        }
+
+        if (jCheckBox4.isSelected()) {
+            List<String> ingredientes = List.of("massa", "molho", "frango", "catupiry");
+            Item item = new Item("Frango", ingredientes, 37.0, loja);
+            SubPedido sub = new SubPedido(item, jComboBox4.getSelectedIndex() + 1);
+            itensSelecionados.add(sub);
+            loja.addItemOferecido(item);
+        }
+
+        if (itensSelecionados.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Nenhum item foi selecionado!",
+                "Erro",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Pedido pedido = new Pedido(itensSelecionados, loja.getDescontos(), loja, cliente);
+        // associar cliente
+        try {
+            Field clienteField = Pedido.class.getDeclaredField("cliente");
+            clienteField.setAccessible(true);
+            clienteField.set(pedido, cliente);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        loja.addPedido(pedido);
+
+        double frete;
+        try {
+            frete = loja.calcularFrete(cliente.getEndereco());
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this,
+                e.getMessage(),
+                "Endereço inválido",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double totalSemDesconto = pedido.calculaTotal();
+        double totalFinal = pedido.calculaTotal_desconto();
+        double tempoEstimado = loja.calcularTempo();
+
+        StringBuilder itensStr = new StringBuilder();
+        for (SubPedido sp : itensSelecionados) {
+            itensStr.append(sp.getQuantidade())
+                    .append("x ")
+                    .append(sp.getItem().getNome())
+                    .append(" (R$")
+                    .append(String.format("%.2f", sp.getItem().getPreco()))
+                    .append(")\n");
+        }
+
+        String mensagem = String.format(
+            "Pedido realizado com sucesso!\n\nItens:\n%s\nFrete: R$ %.2f\nTotal sem desconto: R$ %.2f\nTotal com desconto: R$ %.2f\nTempo estimado de produção: %.1f minutos",
+            itensStr.toString(),
+            frete,
+            totalSemDesconto,
+            totalFinal,
+            tempoEstimado
+        );
+
+        JOptionPane.showMessageDialog(this, mensagem, "Resumo do Pedido", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBox4ActionPerformed
+
+    private void jCheckBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox3ActionPerformed
+
+    private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jCheckBox2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,7 +300,6 @@ public class Pedidos extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pedidos().setVisible(true);
             }
         });
     }

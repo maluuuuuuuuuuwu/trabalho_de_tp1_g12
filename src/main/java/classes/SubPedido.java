@@ -9,7 +9,7 @@ package classes;
  *
  * @author malu
  */
-class SubPedido {
+public class SubPedido {
     public Item item;
     public int quantidade;
 

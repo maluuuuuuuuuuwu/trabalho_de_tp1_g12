@@ -30,28 +30,28 @@ public class GerenciadorDescontos {
      * Aplica o melhor desconto disponível para um valor e quantidade.
      * @param valorOriginal Valor original do pedido
      * @param quantidadeItens Quantidade de itens no pedido
-     * @return Valor com desconto aplicado
+     * @return Valor com desconto aplicado, ou 0 se nenhum desconto foi aplicado
      */
     public double aplicarMelhorDesconto(double valorOriginal, int quantidadeItens) {
         double melhorValor = valorOriginal;
-        
+
         for (Descontos d : descontos) {
             double valorComDesconto;
-            
+
             if (d instanceof DescontoQuantidade) {
                 valorComDesconto = ((DescontoQuantidade) d).aplicarDesconto(valorOriginal, quantidadeItens);
             } else {
                 valorComDesconto = d.aplicarDesconto(valorOriginal);
             }
-            
+
             if (valorComDesconto < melhorValor) {
                 melhorValor = valorComDesconto;
             }
         }
-        
-        return melhorValor;
-    }
 
+        // Se nenhum desconto foi aplicado, retornar 0
+        return (melhorValor == valorOriginal) ? 0.0 : melhorValor;
+    }
     /**
      * Obtém uma cópia segura de todos os descontos.
      * @return Lista imutável de descontos

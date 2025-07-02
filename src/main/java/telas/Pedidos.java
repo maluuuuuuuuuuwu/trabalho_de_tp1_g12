@@ -262,6 +262,9 @@ public class Pedidos extends javax.swing.JFrame {
 
         double totalSemDesconto = pedido.calculaTotal();
         double totalFinal = pedido.calculaTotal_desconto();
+        if(totalFinal == 0){
+            totalFinal = totalSemDesconto;
+        }
         double tempoEstimado = loja.calcularTempo();
 
         StringBuilder itensStr = new StringBuilder();

@@ -163,12 +163,27 @@ public class Pedidos extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         List<SubPedido> itensSelecionados = new ArrayList<>();
-        double total = 0.0;
 
         if (jCheckBox2.isSelected()) {
             List<String> ingredientes = List.of("massa", "molho", "calabresa", "queijo");
             Item item = new Item("Calabresa", ingredientes, 35.0, loja);
-            SubPedido sub = new SubPedido(item, jComboBox1.getSelectedIndex() + 1);
+            int qtd = jComboBox1.getSelectedIndex() + 1;
+
+            // Verifica se todos os ingredientes existem no estoque
+            for (String ingrediente : ingredientes) {
+                if (loja.getEstoque().buscarItem(ingrediente) == null) {
+                    JOptionPane.showMessageDialog(this, "Ingrediente " + ingrediente + " não cadastrado no estoque.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            if (!item.verificaEstoque(qtd)) {
+                JOptionPane.showMessageDialog(this, "Estoque insuficiente para Calabresa.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            item.remove_estoque(qtd);
+            SubPedido sub = new SubPedido(item, qtd);
             itensSelecionados.add(sub);
             loja.addItemOferecido(item);
         }
@@ -176,7 +191,23 @@ public class Pedidos extends javax.swing.JFrame {
         if (jCheckBox3.isSelected()) {
             List<String> ingredientes = List.of("massa", "molho", "presunto", "ovo", "ervilha");
             Item item = new Item("Portuguesa", ingredientes, 38.0, loja);
-            SubPedido sub = new SubPedido(item, jComboBox2.getSelectedIndex() + 1);
+            int qtd = jComboBox2.getSelectedIndex() + 1;
+
+            // Verifica se todos os ingredientes existem no estoque
+            for (String ingrediente : ingredientes) {
+                if (loja.getEstoque().buscarItem(ingrediente) == null) {
+                    JOptionPane.showMessageDialog(this, "Ingrediente " + ingrediente + " não cadastrado no estoque.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            if (!item.verificaEstoque(qtd)) {
+                JOptionPane.showMessageDialog(this, "Estoque insuficiente para Portuguesa.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            item.remove_estoque(qtd);
+            SubPedido sub = new SubPedido(item, qtd);
             itensSelecionados.add(sub);
             loja.addItemOferecido(item);
         }
@@ -184,21 +215,33 @@ public class Pedidos extends javax.swing.JFrame {
         if (jCheckBox4.isSelected()) {
             List<String> ingredientes = List.of("massa", "molho", "frango", "catupiry");
             Item item = new Item("Frango", ingredientes, 37.0, loja);
-            SubPedido sub = new SubPedido(item, jComboBox4.getSelectedIndex() + 1);
+            int qtd = jComboBox4.getSelectedIndex() + 1;
+
+            // Verifica se todos os ingredientes existem no estoque
+            for (String ingrediente : ingredientes) {
+                if (loja.getEstoque().buscarItem(ingrediente) == null) {
+                    JOptionPane.showMessageDialog(this, "Ingrediente " + ingrediente + " não cadastrado no estoque.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            if (!item.verificaEstoque(qtd)) {
+                JOptionPane.showMessageDialog(this, "Estoque insuficiente para Frango.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            
+            item.remove_estoque(qtd);
+            SubPedido sub = new SubPedido(item, qtd);
             itensSelecionados.add(sub);
             loja.addItemOferecido(item);
         }
 
         if (itensSelecionados.isEmpty()) {
-            JOptionPane.showMessageDialog(this,
-                "Nenhum item foi selecionado!",
-                "Erro",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         Pedido pedido = new Pedido(itensSelecionados, loja.getDescontos(), loja, cliente);
-        // associar cliente
         try {
             Field clienteField = Pedido.class.getDeclaredField("cliente");
             clienteField.setAccessible(true);
@@ -213,10 +256,7 @@ public class Pedidos extends javax.swing.JFrame {
         try {
             frete = loja.calcularFrete(cliente.getEndereco());
         } catch (IllegalArgumentException e) {
-            JOptionPane.showMessageDialog(this,
-                e.getMessage(),
-                "Endereço inválido",
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Endereço inválido", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -243,7 +283,7 @@ public class Pedidos extends javax.swing.JFrame {
             tempoEstimado
         );
 
-        JOptionPane.showMessageDialog(this, mensagem, "Resumo do Pedido", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, mensagem, "Resumo do Pedido", JOptionPane.INFORMATION_MESSAGE);                                       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jCheckBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox4ActionPerformed

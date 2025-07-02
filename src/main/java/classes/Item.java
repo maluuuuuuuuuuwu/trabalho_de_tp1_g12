@@ -83,15 +83,16 @@ public class Item {
      * 
      * @return true se todos os ingredientes estão disponíveis com quantidade > 0, false caso contrário
      */
-    public boolean verificaEstoque() {
+    public boolean verificaEstoque(int quantidade) {
         for (String ingrediente : ingredientes) {
-            boolean presente = loja.getEstoque().verificarDisponibilidade(ingrediente);
-            if (!presente) {
+            int qtdDisponivel = loja.getEstoque().buscarItem(ingrediente).getQuantidade();
+            if (qtdDisponivel < quantidade) {
                 return false;
             }
         }
         return true;
     }
+
 
     /**
      * Remove uma unidade de cada ingrediente necessário do estoque, se estiver disponível.
@@ -99,12 +100,13 @@ public class Item {
      * Entrada: nenhuma  
      * Saída: nenhuma (modifica o estoque internamente)
      */
-    public void remove_estoque() {
-        for (String ingrediente : ingredientes) {
-            if (verificaEstoque()) {
+    public void remove_estoque(int quantidade) {
+        for (int i = 0; i < quantidade; i++) {
+            for (String ingrediente : ingredientes) {
                 loja.getEstoque().removerUmItemEstoque(ingrediente);
             }
         }
     }
+
 
 }

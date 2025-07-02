@@ -56,6 +56,26 @@ public class Cliente extends Pessoa implements Usuario_Interface{
         return new ArrayList<>(pedidos);
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
     /**
      * Implementação do método abstrato para exibir informações do cliente
      */

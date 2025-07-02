@@ -4,6 +4,10 @@ package classes;
  * Classe abstrata Descontos.
  * Define o comportamento genérico para aplicar descontos.
  */
+/**
+ *
+ * @author malu
+ */
 public abstract class Descontos {
     protected String descricao;
 

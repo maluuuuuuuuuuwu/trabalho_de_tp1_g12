@@ -1,5 +1,9 @@
 package classes;
 
+/**
+ *
+ * @author malu
+ */
 public class DescontoPorcentagem extends Descontos {
     private double percentual; // Ex: 0.15 para 15%
 

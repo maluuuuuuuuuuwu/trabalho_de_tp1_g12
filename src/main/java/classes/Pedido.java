@@ -6,25 +6,63 @@ package classes;
 
 /**
  *
- * @author alexb
+ * @author alexb e malu
  */
 import java.util.List;
 public class Pedido {
-     private List<Double> itens;
-    private List<Double> listaDescontos;
-    private double frete;
+    private List<SubPedido> itens;
+    private GerenciadorDescontos listaDescontos;
+    private Loja loja;
+    private Cliente cliente;
 
-    public Pedido(List<Double> itens, List<Double> listaDescontos, double frete) {
+
+    public Pedido(List<SubPedido> itens, GerenciadorDescontos listaDescontos, Loja loja) {
         this.itens = itens;
         this.listaDescontos = listaDescontos;
-        this.frete = frete;
+        this.loja = loja;
     }
 
     public double calculaTotal() {
-        double totalItens = itens.stream().mapToDouble(Double::doubleValue).sum();
-        double totalDescontos = listaDescontos.stream().mapToDouble(Double::doubleValue).sum();
-        return totalItens - totalDescontos + frete;
+        double totalItens = 0;
+        for(SubPedido item : itens){
+            totalItens += item.calculaSubtotal();
+        }
+        double totalDescontos = listaDescontos.aplicarMelherDesconto(totalItens, getQuantidadeItens());
+        return totalItens - totalDescontos + getFrete();
     }
+
+    public List<SubPedido> getItens() {
+        return itens;
+    }
+
+    public GerenciadorDescontos getListaDescontos() {
+        return listaDescontos;
+    }
+
+    public Loja getLoja() {
+        return loja;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public int getQuantidadeItens(){
+        int totalItens =0;
+        for(SubPedido item : itens){
+            totalItens += item.getQuantidade();
+        }
+        return totalItens;
+    }
+    
+    public double getFrete(){
+        return this.loja.calcularFrete(cliente.getEndereco());
+    }
+    
+    public double getTempo(){
+        return loja.calcularTempo();
+    }
+    
 }
 
 

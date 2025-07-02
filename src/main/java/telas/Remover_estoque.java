@@ -118,7 +118,7 @@ public class Remover_estoque extends javax.swing.JFrame {
             }
 
             // Create a copy to avoid concurrent modification
-            List<ItemEstoque> inventoryCopy = new ArrayList<>(loja.getEstoque());
+            List<ItemEstoque> inventoryCopy = new ArrayList<>(loja.getEstoque().getEstoque());
             boolean itemFound = false;
             int removedCount = 0;
 

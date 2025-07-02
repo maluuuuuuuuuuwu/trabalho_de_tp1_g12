@@ -189,7 +189,7 @@ public class Pedidos extends javax.swing.JFrame {
         }
 
         if (jCheckBox3.isSelected()) {
-            List<String> ingredientes = List.of("massa", "molho", "presunto", "ovo", "ervilha");
+            List<String> ingredientes = List.of("massa", "molho", "presunto", "ovo", "ervilha", "queijo");
             Item item = new Item("Portuguesa", ingredientes, 38.0, loja);
             int qtd = jComboBox2.getSelectedIndex() + 1;
 
@@ -213,7 +213,7 @@ public class Pedidos extends javax.swing.JFrame {
         }
 
         if (jCheckBox4.isSelected()) {
-            List<String> ingredientes = List.of("massa", "molho", "frango", "catupiry");
+            List<String> ingredientes = List.of("massa", "molho", "frango", "catupiry", "queijo");
             Item item = new Item("Frango", ingredientes, 37.0, loja);
             int qtd = jComboBox4.getSelectedIndex() + 1;
 

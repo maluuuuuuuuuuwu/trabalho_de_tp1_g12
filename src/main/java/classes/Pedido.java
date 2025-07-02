@@ -36,7 +36,7 @@ public class Pedido {
         for (SubPedido item : itens) {
             totalItens += item.getQuantidade();
         }
-        return calculaTotal() - listaDescontos.aplicarMelhorDesconto(calculaTotal(), totalItens);
+        return listaDescontos.aplicarMelhorDesconto(calculaTotal(), totalItens);
     }
     
     public List<SubPedido> getItens() {

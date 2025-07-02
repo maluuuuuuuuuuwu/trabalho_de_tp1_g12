@@ -19,6 +19,10 @@ public class Cliente extends Pessoa implements Usuario_Interface{
         super(cpf, endereco, telefone, nome, senha);
     }
 
+    public Cliente(String cliente_Teste, String string, String string0, String rua_Fictícia_123) {
+         
+    }
+
     /**
      * Adiciona um novo pedido à lista do cliente
      * @param pedido O pedido a ser adicionado

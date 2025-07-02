@@ -5,6 +5,8 @@
 package telas;
 
 import classes.Cliente;
+import classes.Funcionarios;
+import classes.ItemEstoque;
 import classes.Loja;
 import javax.swing.JOptionPane;
 
@@ -35,7 +37,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cpf = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        BotãoLogar = new javax.swing.JButton();
         senha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -52,10 +54,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BotãoLogar.setText("Entrar");
+        BotãoLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BotãoLogarActionPerformed(evt);
             }
         });
 
@@ -70,44 +72,46 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(324, 324, 324))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(33, 33, 33)
-                                .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(senha))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jButton1)))
-                .addContainerGap(185, Short.MAX_VALUE))
+                        .addGap(116, 116, 116)
+                        .addComponent(jLabel2)
+                        .addGap(16, 16, 16))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BotãoLogar)
+                        .addGap(228, 228, 228))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(252, 252, 252))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addContainerGap(49, Short.MAX_VALUE))
+                    .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
+                .addComponent(BotãoLogar)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         pack();
@@ -117,10 +121,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cpfActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BotãoLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotãoLogarActionPerformed
         String CPF = cpf.getText();
-        String Senha = senha.getText();
-       
+        String Senha = new String(senha.getPassword());
+        
         String tipoUsuario = loja.verificarCredenciais(CPF, Senha);
         
         if (tipoUsuario != null) {
@@ -146,8 +150,8 @@ public class Login extends javax.swing.JFrame {
                 "CPF ou senha incorretos!", 
                 "Erro de Login", 
                 JOptionPane.ERROR_MESSAGE);
-        }      
-    }//GEN-LAST:event_jButton1ActionPerformed
+        }
+    }//GEN-LAST:event_BotãoLogarActionPerformed
 
     private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed
         // TODO add your handling code here:
@@ -155,23 +159,12 @@ public class Login extends javax.swing.JFrame {
 
         private void abrirTelaDestino(Cliente cliente) {
         switch(telaDestino) {
-            case "gerencia_estoque":
-                new Gerencia_estoque(loja).setVisible(true);
-                break;
-            case "adicionar_item":
-                new Adicionar_item(loja).setVisible(true);
-                break;
-            case "pedidos":
-                new Pedidos(loja,cliente).setVisible(true);
-                break;
-            case "Descontos":
-                new Descontos(loja).setVisible(true);
-                break;
-            case "Remove_item":
-                new Remove_item(loja).setVisible(true);
-                break;
-            default:
-                new Tela_inicial(loja).setVisible(true);
+            case "gerencia_estoque" -> new Gerencia_estoque(loja).setVisible(true);
+            case "adicionar_item" -> new Adicionar_item(loja).setVisible(true);
+            case "pedidos" -> new Pedidos(loja,cliente).setVisible(true);
+            case "Descontos" -> new Descontos(loja).setVisible(true);
+            case "Remove_item" -> new Remove_item(loja).setVisible(true);
+            default -> new Tela_inicial(loja).setVisible(true);
         }
     }
     
@@ -205,14 +198,29 @@ public class Login extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-            }
+        public void run() {
+            Loja loja = new Loja();
+            
+            //ABASTEcendo O ESTOQUE
+            // Usando o construtor correto: (nome, codigo, quantidade)
+
+            //ADICIONE UM FUNCIONÁRIO DE TESTE
+            // Usando o construtor: (funcao, cpf, endereco, telefone, nome, senha)
+            Funcionarios funcionarioTeste = new Funcionarios("Pizzaiolo", "987", "Casa do Funcionario", "88888-8888", "Funcionario Teste", "987");
+            loja.addFuncionario(funcionarioTeste);
+            // CORREÇÃO AQUI: Chamando o construtor correto com 5 argumentos
+            Cliente clienteTeste = new Cliente("123", "unb, icc, linf 3", "99999-9999", "Cliente Teste", "123");
+            loja.addCliente(clienteTeste);
+
+            Login telaLogin = new Login(loja, "pedidos");
+            telaLogin.setVisible(true);
+        }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BotãoLogar;
     private javax.swing.JTextField cpf;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -83,15 +83,31 @@ public class Item {
      * 
      * @return true se todos os ingredientes estão disponíveis com quantidade > 0, false caso contrário
      */
-    public boolean verificaEstoque(int quantidade) {
-        for (String ingrediente : ingredientes) {
-            int qtdDisponivel = loja.getEstoque().buscarItem(ingrediente).getQuantidade();
-            if (qtdDisponivel < quantidade) {
-                return false;
-            }
+public boolean verificaEstoque(int quantidade) {
+    // Itera sobre a lista de ingredientes do item
+    for (String nomeIngrediente : ingredientes) {
+
+        // Passo 1: Busca o item no estoque da loja
+        ItemEstoque ingredienteNoEstoque = loja.getEstoque().buscarItem(nomeIngrediente);
+
+        // Passo 2: VERIFICA SE O INGREDIENTE FOI ENCONTRADO (esta é a correção)
+        if (ingredienteNoEstoque == null) {
+            // Se o ingrediente nem existe, não há como ter estoque dele.
+            System.err.println("AVISO DE ESTOQUE: O ingrediente '" + nomeIngrediente + "' não foi encontrado no cadastro do estoque!");
+            return false; 
         }
-        return true;
+
+        // Passo 3: Agora que sabemos que o ingrediente existe, verificamos a quantidade
+        if (ingredienteNoEstoque.getQuantidade() < quantidade) {
+            // Encontrou o ingrediente, mas não tem o suficiente.
+            System.err.println("AVISO DE ESTOQUE: Estoque insuficiente para o ingrediente '" + nomeIngrediente + "'");
+            return false; 
+        }
     }
+
+    // Se o loop terminar, significa que todos os ingredientes foram checados e há estoque suficiente.
+    return true;
+}
 
 
     /**

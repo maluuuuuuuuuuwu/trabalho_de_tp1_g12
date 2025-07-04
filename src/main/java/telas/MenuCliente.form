@@ -51,12 +51,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Atualizar" min="-2" pref="116" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="Adicionar" min="-2" pref="146" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="Remover" min="-2" pref="146" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="Atualiza_item" min="-2" pref="146" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -64,12 +58,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" max="-2" attributes="0">
-                      <Component id="Adicionar" alignment="3" max="32767" attributes="0"/>
-                      <Component id="Remover" alignment="3" max="32767" attributes="0"/>
-                      <Component id="Atualiza_item" alignment="3" max="32767" attributes="0"/>
-                      <Component id="Atualizar" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="Atualizar" max="32767" attributes="0"/>
                   <EmptySpace type="separate" pref="33" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="408" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -130,30 +119,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AtualizarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="Adicionar">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar Item"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdicionarActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="Remover">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Remover Item"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RemoverActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="Atualiza_item">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Atualizar item"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Atualiza_itemActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

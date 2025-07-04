@@ -10,12 +10,12 @@ import classes.Loja;
  *
  * @author malu
  */
-public class Tela_inicial extends javax.swing.JFrame {
+public class Tela_inicial_funcionario extends javax.swing.JFrame {
     private Loja loja;
     /**
      * Creates new form tela_inicial
      */
-    public Tela_inicial(Loja loja) {
+    public Tela_inicial_funcionario(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -37,8 +37,9 @@ public class Tela_inicial extends javax.swing.JFrame {
         realizar_pedido = new javax.swing.JButton();
         adicionar_disconto = new javax.swing.JButton();
         Menu = new javax.swing.JButton();
+        Voltar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
 
@@ -73,7 +74,7 @@ public class Tela_inicial extends javax.swing.JFrame {
         });
 
         realizar_pedido.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        realizar_pedido.setText("Realizar pedido");
+        realizar_pedido.setText("Gerenciar fucionarios");
         realizar_pedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 realizar_pedidoActionPerformed(evt);
@@ -89,10 +90,17 @@ public class Tela_inicial extends javax.swing.JFrame {
         });
 
         Menu.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
-        Menu.setText("Menu");
+        Menu.setText("Cardapio");
         Menu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuActionPerformed(evt);
+            }
+        });
+
+        Voltar.setText("Voltar");
+        Voltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarActionPerformed(evt);
             }
         });
 
@@ -101,25 +109,32 @@ public class Tela_inicial extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(248, 248, 248)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cadastrar_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cadastrar_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(adicionar_disconto, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
-                        .addGap(118, 118, 118)
+                        .addGap(248, 248, 248)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cadastrar_funcionario, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(realizar_pedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(278, Short.MAX_VALUE))
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 638, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cadastrar_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cadastrar_cliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(adicionar_disconto, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
+                                .addGap(118, 118, 118)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cadastrar_funcionario, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(realizar_pedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Menu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(68, 68, 68)
+                .addContainerGap()
+                .addComponent(Voltar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
                 .addComponent(jLabel1)
                 .addGap(44, 44, 44)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -133,7 +148,7 @@ public class Tela_inicial extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(adicionar_disconto, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Menu, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,25 +169,30 @@ public class Tela_inicial extends javax.swing.JFrame {
         new Cadastrar_cliente(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_clienteActionPerformed
 
+    private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed
+        new Menu(this.loja).setVisible(true);
+    }//GEN-LAST:event_MenuActionPerformed
+
+    private void adicionar_discontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_discontoActionPerformed
+        new Descontos(this.loja).setVisible(true);
+    }//GEN-LAST:event_adicionar_discontoActionPerformed
+
+    private void cadastrar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_itemActionPerformed
+        new Gerencia_estoque(this.loja).setVisible(true);
+    }//GEN-LAST:event_cadastrar_itemActionPerformed
+
     private void cadastrar_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_funcionarioActionPerformed
         new Cadastrar_Funcionario(this.loja).setVisible(true);
     }//GEN-LAST:event_cadastrar_funcionarioActionPerformed
 
-    private void cadastrar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_itemActionPerformed
-        new Login(this.loja, "gerencia_estoque").setVisible(true);
-    }//GEN-LAST:event_cadastrar_itemActionPerformed
-
     private void realizar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_pedidoActionPerformed
-        new Login(this.loja, "pedidos").setVisible(true);
+        new Gerencia_funcionarios(this.loja).setVisible(true);
     }//GEN-LAST:event_realizar_pedidoActionPerformed
 
-    private void adicionar_discontoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionar_discontoActionPerformed
-        new Login(this.loja, "Descontos").setVisible(true);
-    }//GEN-LAST:event_adicionar_discontoActionPerformed
-
-    private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed
-        new Menu(this.loja).setVisible(true);
-    }//GEN-LAST:event_MenuActionPerformed
+    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
+        new Login_inicial(this.loja).setVisible(true);
+        dispose();
+    }//GEN-LAST:event_VoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,14 +211,18 @@ public class Tela_inicial extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial_funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial_funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial_funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tela_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Tela_inicial_funcionario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -214,6 +238,7 @@ public class Tela_inicial extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Menu;
+    private javax.swing.JButton Voltar;
     private javax.swing.JButton adicionar_disconto;
     private javax.swing.JButton cadastrar_cliente;
     private javax.swing.JButton cadastrar_funcionario;

@@ -12,10 +12,10 @@ import javax.swing.JOptionPane;
  *
  * @author alexb e malu
  */
-public class Login extends javax.swing.JFrame {
+public class Login_inicial extends javax.swing.JFrame {
     private Loja loja;
     
-    public Login(Loja loja) {
+    public Login_inicial(Loja loja) {
         this.loja = loja;
         initComponents();
     }
@@ -35,11 +35,12 @@ public class Login extends javax.swing.JFrame {
         cpf = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         senha = new javax.swing.JPasswordField();
-        Voltar = new javax.swing.JButton();
+        cadastrar_cliente = new javax.swing.JButton();
+        cadastrar_funcionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("     Login Funcionarios");
+        jLabel1.setText("Login");
 
         jLabel2.setText("CPF :");
 
@@ -65,10 +66,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        Voltar.setText("Voltar");
-        Voltar.addActionListener(new java.awt.event.ActionListener() {
+        cadastrar_cliente.setText("Cadastrar Cliente");
+        cadastrar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                VoltarActionPerformed(evt);
+                cadastrar_clienteActionPerformed(evt);
+            }
+        });
+
+        cadastrar_funcionario.setText("Cadastrar Funcionario");
+        cadastrar_funcionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastrar_funcionarioActionPerformed(evt);
             }
         });
 
@@ -76,6 +84,10 @@ public class Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(324, 324, 324))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -88,26 +100,23 @@ public class Login extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(senha))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(290, 290, 290)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(245, 245, 245)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(cadastrar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jButton1))
+                                    .addComponent(senha)))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Voltar)))
+                        .addComponent(cadastrar_funcionario)))
                 .addContainerGap(185, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Voltar)
-                .addGap(9, 9, 9)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,8 +125,12 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(cadastrar_cliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(cadastrar_funcionario)
+                .addContainerGap())
         );
 
         pack();
@@ -131,46 +144,48 @@ public class Login extends javax.swing.JFrame {
         String CPF = cpf.getText();
         String Senha = senha.getText();
 
-        // Credenciais de superusuário (pode ser armazenado de forma mais segura)
-        final String SUPER_CPF = "012345678";
-        final String SUPER_SENHA = "admin123";
-
-        // Verifica se é o superusuário
-        boolean isSuperUser = CPF.equals(SUPER_CPF) && Senha.equals(SUPER_SENHA);
-
         String tipoUsuario = loja.verificarCredenciais(CPF, Senha);
 
-        if (tipoUsuario != null || isSuperUser) {
-            if (tipoUsuario != null && tipoUsuario.equals("cliente")) {
-                // Verifica se é um cliente comum tentando acessar
-                JOptionPane.showMessageDialog(this, 
-                    "Acesso restrito! Somente funcionários podem acessar este sistema.", 
-                    "Acesso Negado", 
-                    JOptionPane.WARNING_MESSAGE);
+        if (tipoUsuario != null) {
+            if (tipoUsuario.equals("cliente")) {
+                // Busca o cliente correspondente
+                Cliente cliente = null;
+                for (Cliente c : loja.getLista_clientes()) {
+                    if (c.getCpf().equals(CPF) && c.getSenha().equals(Senha)) {
+                        cliente = c;
+                        break;
+                    }
+                }
+                if (cliente != null) {
+                    new Tela_inicial_cliente(loja, cliente).setVisible(true);
+                    dispose();
+                }
+            } else {
+                new Tela_inicial_funcionario(loja).setVisible(true);
                 dispose();
-                return;
             }
-
-            // Se chegou aqui, é funcionário ou superusuário
-            new Tela_inicial_funcionario(loja).setVisible(true);
-            dispose();
         } else {
             JOptionPane.showMessageDialog(this, 
-                "CPF ou senha incorretos! Acesso permitido apenas para funcionários.", 
+                "CPF ou senha incorretos!", 
                 "Erro de Login", 
                 JOptionPane.ERROR_MESSAGE);
-        }        
+        }                                      
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void senhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_senhaActionPerformed
 
-    private void VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarActionPerformed
-        new Login_inicial(this.loja).setVisible(true);
+    private void cadastrar_funcionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_funcionarioActionPerformed
+        new Login(this.loja).setVisible(true);
         dispose();
-    }//GEN-LAST:event_VoltarActionPerformed
+    }//GEN-LAST:event_cadastrar_funcionarioActionPerformed
 
+    private void cadastrar_clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrar_clienteActionPerformed
+        new Cadastrar_cliente(this.loja).setVisible(true);
+    }//GEN-LAST:event_cadastrar_clienteActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -188,14 +203,15 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login_inicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
@@ -206,7 +222,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Voltar;
+    private javax.swing.JButton cadastrar_cliente;
+    private javax.swing.JButton cadastrar_funcionario;
     private javax.swing.JTextField cpf;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class Adicionar_item extends javax.swing.JFrame {
     private Loja loja;
+    private Item itemExistente;
     /**
      * Creates new form 
      */
@@ -24,6 +25,18 @@ public class Adicionar_item extends javax.swing.JFrame {
         initComponents();
     }
 
+    public Adicionar_item(Loja loja, Item itemExistente) {
+        this.loja = loja;
+        this.itemExistente = itemExistente;
+        initComponents();
+
+        if (itemExistente != null) {
+            Nome.setText(itemExistente.getNome());
+            Preco.setText(String.valueOf(itemExistente.getPreco()));
+            Ingredientes.setText(String.join(", ", itemExistente.getIngredientes()));
+            adicionar_item.setText("Atualizar");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,14 +200,18 @@ public class Adicionar_item extends javax.swing.JFrame {
             }
 
             // Se todas as validações passarem, cria o item
-            Item item = new Item(
-                nome,
-                ingredientes,
-                preco, 
-                this.loja
-            );
-            this.loja.addItemOferecido(item);
-            dispose(); // Fecha a janela após adicionar
+            if (itemExistente != null) {
+                // Atualiza o item existente
+                itemExistente.setNome(nome);
+                itemExistente.setPreco(preco);
+                itemExistente.setIngredientes(ingredientes);
+            } else {
+                // Cria um novo item
+                Item item = new Item(nome, ingredientes, preco, this.loja);
+                this.loja.addItemOferecido(item);
+            }
+
+            dispose();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(

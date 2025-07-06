@@ -50,6 +50,10 @@ public class GerenciadorUsuarios {
                           .orElse(null);
     }
 
+    public boolean removerFuncionario(String cpf) {
+        return funcionarios.removeIf(func -> func.getCpf().equals(cpf));
+    }
+    
     /**
      * Obtém lista segura de todos os clientes.
      * @return Cópia da lista de clientes

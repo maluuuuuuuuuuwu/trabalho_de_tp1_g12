@@ -7,6 +7,7 @@ package telas;
 import classes.Estoque;
 import classes.ItemEstoque;
 import classes.Loja;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -200,9 +201,28 @@ public class Gerencia_estoque extends javax.swing.JFrame {
     }//GEN-LAST:event_atualizarActionPerformed
 
     private void Atualizar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Atualizar_itemActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item para atualizar!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nome = (String) jTable1.getValueAt(selectedRow, 0);
+        ItemEstoque item = buscarItem(nome);
+
+        if (item != null) {
+            new Adicionar_estoque(this.loja, item).setVisible(true);
+        }
     }//GEN-LAST:event_Atualizar_itemActionPerformed
     
+    private ItemEstoque buscarItem(String nome) {
+        for (ItemEstoque item : loja.getEstoque().getEstoque()) {
+            if (item.getNome().equals(nome)) {
+                return item;
+            }
+        }
+        return null;
+    }
    
     private void initializeTable() {
         // Set up table model with proper column names

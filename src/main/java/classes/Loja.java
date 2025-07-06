@@ -175,6 +175,11 @@ public class Loja {
         return new ArrayList<>(itens_oferecidos);
     }
 
+    // remove fuincionario
+    public boolean removerFuncionario(String cpf) {
+        return usuarios.removerFuncionario(cpf);
+    }
+    
     /**
      * Retorna o endereço fixo da loja.  
      * Entrada: nenhuma  

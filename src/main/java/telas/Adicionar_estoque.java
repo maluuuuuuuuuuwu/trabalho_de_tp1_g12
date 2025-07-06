@@ -14,12 +14,25 @@ import javax.swing.JOptionPane;
  */
 public class Adicionar_estoque extends javax.swing.JFrame {
     private Loja loja;
+    private ItemEstoque itemExistente;
     /**
      * Creates new form cadastrar_cliente
      */
     public Adicionar_estoque(Loja loja) {
+        this(loja, null);
+    }
+
+    public Adicionar_estoque(Loja loja, ItemEstoque itemExistente) {
         this.loja = loja;
+        this.itemExistente = itemExistente;
         initComponents();
+
+        if (itemExistente != null) {
+            Nome.setText(itemExistente.getNome());
+            codigo_item.setText(itemExistente.getCodigo());
+            Quantidade.setText(String.valueOf(itemExistente.getQuantidade()));
+            adicionar_item.setText("Atualizar");
+        }
     }
 
     /**
@@ -165,11 +178,18 @@ public class Adicionar_estoque extends javax.swing.JFrame {
                 return;
             }
 
-            // Se todas as validações passarem, cria o item e adiciona ao estoque
+        if (itemExistente != null) {
+            // Atualiza o item existente
+            itemExistente.setNome(nome);
+            itemExistente.setCodigo(codigo);
+            itemExistente.setQuantidade(quantidade);
+        } else {
+            // Cria um novo item
             ItemEstoque item = new ItemEstoque(nome, codigo, quantidade);
             this.loja.addItemEstoque(item);
-            dispose(); // Fecha a janela após adicionar
+        }
 
+        dispose();
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(
                 this, 

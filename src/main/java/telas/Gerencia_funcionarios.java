@@ -5,8 +5,10 @@
 package telas;
 
 import classes.Estoque;
+import classes.Funcionarios;
 import classes.ItemEstoque;
 import classes.Loja;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class Gerencia_funcionarios extends javax.swing.JFrame {
     private Loja loja;
     /**
-     * Creates new form gerencia_estoque
+     * Creates new form gerencia_funcionario
      */
     public Gerencia_funcionarios(Loja loja) {
         this.loja = loja;
@@ -71,59 +73,59 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
         jTable1.setForeground(new java.awt.Color(255, 255, 255));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Nome", "Codigo", "Quantidade"
+                "Nome", "CPF", "telefone", "endereco"
             }
         ));
         jTable1.setShowGrid(true);
@@ -199,54 +201,117 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void remover_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remover_itemActionPerformed
-        new Remover_estoque(this.loja).setVisible(true);
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, 
+                "Selecione um funcionário para remover!", 
+                "Aviso", 
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String cpf = (String) jTable1.getValueAt(selectedRow, 1);
+        if (cpf == null || cpf.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+                "CPF inválido!", 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Funcionarios funcionario = buscarFuncionarioPorCPF(cpf);
+        if (funcionario == null) {
+            JOptionPane.showMessageDialog(this, 
+                "Funcionário não encontrado!", 
+                "Erro", 
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Tem certeza que deseja remover o funcionário: " + funcionario.getNome() + "?",
+            "Confirmação", JOptionPane.YES_NO_OPTION);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            boolean removido = loja.removerFuncionario(cpf);
+            if (removido) {
+                refreshFuncionariosTable();
+                JOptionPane.showMessageDialog(this, 
+                    "Funcionário removido com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(this, 
+                    "Erro ao remover funcionário!", 
+                    "Erro", 
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_remover_itemActionPerformed
 
     private void atualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_atualizarActionPerformed
-        refreshEstoqueTable();
+        refreshFuncionariosTable();
     }//GEN-LAST:event_atualizarActionPerformed
 
     private void Atualizar_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Atualizar_itemActionPerformed
-        // TODO add your handling code here:
+            int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um funcionário para atualizar!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nome = (String) jTable1.getValueAt(selectedRow, 0);
+        Funcionarios funcionario = buscarFuncionario(nome);
+
+        if (funcionario != null) {
+            new Cadastrar_Funcionario(this.loja, funcionario).setVisible(true);
+        }
     }//GEN-LAST:event_Atualizar_itemActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Cadastrar_Funcionario(this.loja).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
     
+    private Funcionarios buscarFuncionarioPorCPF(String cpf) {
+        for (Funcionarios func : loja.getLista_funcionarios()) {
+            if (func.getCpf().equals(cpf)) {
+                return func;
+            }
+        }
+        return null;
+    }
+    
+    private Funcionarios buscarFuncionario(String nome) {
+        for (Funcionarios func : loja.getLista_funcionarios()) {
+            if (func.getNome().equals(nome)) {
+                return func;
+            }
+        }
+        return null;
+    }
    
     private void initializeTable() {
-        // Set up table model with proper column names
+        // Set up table model with proper column names para funcionários
         DefaultTableModel model = new DefaultTableModel(
-            new Object[]{"Nome", "Código", "Quantidade"}, 0) {
+            new Object[]{"Nome", "CPF", "Telefone", "Endereço"}, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false; // Make table non-editable
             }
         };
         jTable1.setModel(model);
-        refreshEstoqueTable();
+        refreshFuncionariosTable(); // Mudei para refreshFuncionariosTable
     }
 
-    private void setupInventoryListener() {
-        // Add listener to inventory changes
-        this.loja.getEstoque().addPropertyChangeListener(evt -> {
-             if ("estoque".equals(evt.getPropertyName())) {
-                 refreshEstoqueTable();
-             }
-        });
-    }
-
-    private void refreshEstoqueTable() {
+    private void refreshFuncionariosTable() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Clear existing data
 
-        // Add all inventory items to the table
-        for (ItemEstoque item : loja.getEstoque().getEstoque()) {
+        // Add all employees to the table
+        for (Funcionarios funcionario : loja.getLista_funcionarios()) {
             model.addRow(new Object[]{
-                item.getNome(),
-                item.getCodigo(),
-                item.getQuantidade()
+                funcionario.getNome(),
+                funcionario.getCpf(),
+                funcionario.getTelefone(),
+                funcionario.getEndereco()
             });
         }
 
@@ -256,6 +321,14 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
         }
     }
 
+    private void setupInventoryListener() {
+        // Add listener to employees list changes
+        this.loja.addPropertyChangeListener(evt -> {
+            if ("lista_funcionarios".equals(evt.getPropertyName())) {
+                refreshFuncionariosTable();
+            }
+        });
+    }
     
     static void main(String args[]) {
         /* Set the Nimbus look and feel */

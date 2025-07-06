@@ -7,6 +7,7 @@ package telas;
 import classes.Item;
 import classes.ItemEstoque;
 import classes.Loja;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -155,9 +156,30 @@ public class Menu extends javax.swing.JFrame {
     }//GEN-LAST:event_RemoverActionPerformed
 
     private void Atualiza_itemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Atualiza_itemActionPerformed
-        // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Selecione um item para atualizar!", "Aviso", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String nome = (String) jTable1.getValueAt(selectedRow, 0);
+        Item item = buscarItemMenu(nome);
+
+        if (item != null) {
+            new Adicionar_item(this.loja, item).setVisible(true);
+        }
     }//GEN-LAST:event_Atualiza_itemActionPerformed
 
+    private Item buscarItemMenu(String nome) {
+        for (Item item : loja.getItens_oferecidos()) {
+            if (item.getNome().equals(nome)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    
     private void carregarEstoqueNaTabela() {
         if (loja == null || loja.getItens_oferecidos() == null) return;
 

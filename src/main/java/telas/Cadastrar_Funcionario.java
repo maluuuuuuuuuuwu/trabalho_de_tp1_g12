@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class Cadastrar_Funcionario extends javax.swing.JFrame {
     private Loja loja;
+    private Funcionarios funcionarioExistente;
     /**
      * Creates new form cadastrar_cliente
      */
@@ -24,7 +25,20 @@ public class Cadastrar_Funcionario extends javax.swing.JFrame {
         this.loja = loja;
         initComponents();
     }
+    public Cadastrar_Funcionario(Loja loja, Funcionarios funcionarioExistente) {
+        this.loja = loja;
+        this.funcionarioExistente = funcionarioExistente;
+        initComponents();
 
+        if (funcionarioExistente != null) {
+            Funcao.setText(funcionarioExistente.getFuncao());
+            cpf.setText(funcionarioExistente.getCpf());
+            endereco.setText(funcionarioExistente.getEndereco());
+            telefone.setText(funcionarioExistente.getTelefone());
+            Nome.setText(funcionarioExistente.getNome());
+            cadastrar.setText("Atualizar");
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -198,17 +212,21 @@ public class Cadastrar_Funcionario extends javax.swing.JFrame {
                 return;
             }
 
-            // Se todas as validações passarem, cria o funcionário
-            Funcionarios funcionario = new Funcionarios(
-                funcao,
-                cpfText, 
-                enderecoText, 
-                telefoneText,
-                nome, 
-                senhaText
-            );
-            loja.addFuncionario(funcionario);
-            dispose(); // Fecha a janela após adicionar
+            if (funcionarioExistente != null) {
+                // Atualiza o funcionário existente
+                funcionarioExistente.setFuncao(funcao);
+                funcionarioExistente.setCpf(cpfText);
+                funcionarioExistente.setEndereco(enderecoText);
+                funcionarioExistente.setTelefone(telefoneText);
+                funcionarioExistente.setNome(nome);
+                // Nota: Você pode querer adicionar um método setSenha na classe Funcionarios
+            } else {
+                // Cria um novo funcionário
+                Funcionarios funcionario = new Funcionarios(funcao, cpfText, enderecoText, telefoneText, nome, senhaText);
+                loja.addFuncionario(funcionario);
+            }
+
+            dispose();
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(

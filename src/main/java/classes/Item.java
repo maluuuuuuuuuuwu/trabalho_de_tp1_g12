@@ -33,6 +33,10 @@ public class Item {
         this.nome = nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
     /**
      * Retorna a lista de ingredientes do item.
      * 

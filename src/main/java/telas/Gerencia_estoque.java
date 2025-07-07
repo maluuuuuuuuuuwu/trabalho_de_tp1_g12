@@ -7,6 +7,8 @@ package telas;
 import classes.Estoque;
 import classes.ItemEstoque;
 import classes.Loja;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -44,6 +46,8 @@ public class Gerencia_estoque extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         atualizar = new javax.swing.JButton();
         Atualizar_item = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        Pesquisar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,6 +143,19 @@ public class Gerencia_estoque extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        Pesquisar.setText("Pesquisar");
+        Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -152,6 +169,10 @@ public class Gerencia_estoque extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(118, 118, 118)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Pesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -168,7 +189,9 @@ public class Gerencia_estoque extends javax.swing.JFrame {
                     .addComponent(adicionar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Atualizar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Atualizar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pesquisar))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
@@ -214,6 +237,19 @@ public class Gerencia_estoque extends javax.swing.JFrame {
             new Adicionar_estoque(this.loja, item).setVisible(true);
         }
     }//GEN-LAST:event_Atualizar_itemActionPerformed
+
+    private void PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesquisarActionPerformed
+        String termo = jTextField1.getText().trim().toLowerCase();
+        refreshEstoqueTable(termo);
+    }//GEN-LAST:event_PesquisarActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void refreshEstoqueTable() {
+        refreshEstoqueTable(null);
+    }
     
     private ItemEstoque buscarItem(String nome) {
         for (ItemEstoque item : loja.getEstoque().getEstoque()) {
@@ -246,17 +282,54 @@ public class Gerencia_estoque extends javax.swing.JFrame {
         });
     }
 
-    private void refreshEstoqueTable() {
+    private void refreshEstoqueTable(String filterTerm) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Clear existing data
+        model.setRowCount(0);
 
-        // Add all inventory items to the table
-        for (ItemEstoque item : loja.getEstoque().getEstoque()) {
-            model.addRow(new Object[]{
-                item.getNome(),
-                item.getCodigo(),
-                item.getQuantidade()
-            });
+        List<ItemEstoque> estoque = loja.getEstoque().getEstoque();
+
+        if (filterTerm != null && !filterTerm.isEmpty()) {
+            List<ItemEstoque> filtered = new ArrayList<>();
+            List<ItemEstoque> others = new ArrayList<>();
+
+            for (ItemEstoque item : estoque) {
+                if (item.getNome().toLowerCase().contains(filterTerm) || 
+                    String.valueOf(item.getCodigo()).contains(filterTerm)) {
+                    filtered.add(item);
+                } else {
+                    others.add(item);
+                }
+            }
+
+            // Adiciona primeiro os itens filtrados
+            for (ItemEstoque item : filtered) {
+                model.addRow(new Object[]{
+                    item.getNome(),
+                    item.getCodigo(),
+                    item.getQuantidade()
+                });
+            }
+            // Depois os demais
+            for (ItemEstoque item : others) {
+                model.addRow(new Object[]{
+                    item.getNome(),
+                    item.getCodigo(),
+                    item.getQuantidade()
+                });
+            }
+
+            if (!filtered.isEmpty()) {
+                jTable1.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            // Sem filtro - adiciona todos
+            for (ItemEstoque item : estoque) {
+                model.addRow(new Object[]{
+                    item.getNome(),
+                    item.getCodigo(),
+                    item.getQuantidade()
+                });
+            }
         }
 
         // Auto-resize columns
@@ -303,11 +376,13 @@ public class Gerencia_estoque extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Atualizar_item;
+    private javax.swing.JButton Pesquisar;
     private javax.swing.JButton adicionar_item;
     private javax.swing.JButton atualizar;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton remover_item;
     // End of variables declaration//GEN-END:variables
 }

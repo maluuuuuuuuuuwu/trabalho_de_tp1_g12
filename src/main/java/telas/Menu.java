@@ -7,6 +7,8 @@ package telas;
 import classes.Item;
 import classes.ItemEstoque;
 import classes.Loja;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -41,6 +43,12 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -48,6 +56,23 @@ public class Menu extends javax.swing.JFrame {
         Adicionar = new javax.swing.JButton();
         Remover = new javax.swing.JButton();
         Atualiza_item = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        Pesquisar = new javax.swing.JButton();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane3.setViewportView(jTextArea1);
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane4.setViewportView(jTextArea2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 204));
@@ -99,14 +124,25 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        Pesquisar.setText("Pesquisar");
+        Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 797, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 991, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(Atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Pesquisar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Adicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -123,7 +159,9 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(Adicionar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Remover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Atualiza_item, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Atualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Atualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pesquisar))
                 .addGap(18, 33, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -170,6 +208,11 @@ public class Menu extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Atualiza_itemActionPerformed
 
+    private void PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesquisarActionPerformed
+        String termo = jTextField1.getText().trim().toLowerCase();
+        refreshEstoqueTable(termo);
+    }//GEN-LAST:event_PesquisarActionPerformed
+
     private Item buscarItemMenu(String nome) {
         for (Item item : loja.getItens_oferecidos()) {
             if (item.getNome().equals(nome)) {
@@ -179,18 +222,20 @@ public class Menu extends javax.swing.JFrame {
         return null;
     }
 
+    public void refreshEstoqueTable() {
+        refreshEstoqueTable(null);
+    }
     
     private void carregarEstoqueNaTabela() {
         if (loja == null || loja.getItens_oferecidos() == null) return;
-
+        atualizarTabela(loja.getItens_oferecidos());
+    } 
+    
+    private void atualizarTabela(List<Item> itens) {
         DefaultTableModel model = new DefaultTableModel(new Object[]{"Nome", "Preco"}, 0);
-        model.setRowCount(0);
 
-        for (Item item : loja.getItens_oferecidos()) {
-            model.addRow(new Object[]{
-                item.getNome(),  // Changed from getNome() to getnome()
-                item.getPreco()
-            });
+        for (Item item : itens) {
+            model.addRow(new Object[]{item.getNome(), item.getPreco()});
         }
 
         jTable1.setModel(model);
@@ -199,10 +244,39 @@ public class Menu extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(i).setPreferredWidth(150);
         }
     }
-    
-    public void refreshEstoqueTable() {
-        carregarEstoqueNaTabela();
+
+    public void refreshEstoqueTable(String filterTerm) {
+        if (loja == null || loja.getItens_oferecidos() == null) return;
+
+        List<Item> todosItens = loja.getItens_oferecidos();
+
+        if (filterTerm != null && !filterTerm.isEmpty()) {
+            List<Item> filtrados = new ArrayList<>();
+            List<Item> outros = new ArrayList<>();
+
+            for (Item item : todosItens) {
+                if (item.getNome().toLowerCase().contains(filterTerm.toLowerCase()) || 
+                    String.valueOf(item.getPreco()).contains(filterTerm)) {
+                    filtrados.add(item);
+                } else {
+                    outros.add(item);
+                }
+            }
+
+            List<Item> resultadoFinal = new ArrayList<>();
+            resultadoFinal.addAll(filtrados);
+            resultadoFinal.addAll(outros);
+
+            atualizarTabela(resultadoFinal);
+
+            if (!filtrados.isEmpty()) {
+                jTable1.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            atualizarTabela(todosItens);
+        }
     }
+
     
     
     /**
@@ -245,9 +319,17 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JButton Adicionar;
     private javax.swing.JButton Atualiza_item;
     private javax.swing.JButton Atualizar;
+    private javax.swing.JButton Pesquisar;
     private javax.swing.JButton Remover;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

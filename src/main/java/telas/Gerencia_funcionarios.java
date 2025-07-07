@@ -8,6 +8,8 @@ import classes.Estoque;
 import classes.Funcionarios;
 import classes.ItemEstoque;
 import classes.Loja;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
@@ -46,6 +48,8 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
         atualizar = new javax.swing.JButton();
         Atualizar_item = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        Pesquisar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
@@ -152,6 +156,19 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
             }
         });
 
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        Pesquisar.setText("Pesquisar");
+        Pesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PesquisarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -163,6 +180,10 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(34, 34, 34)
                         .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(94, 94, 94)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Pesquisar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
@@ -180,7 +201,9 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
                     .addComponent(remover_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(atualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Atualizar_item, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Pesquisar))
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                 .addContainerGap())
@@ -269,6 +292,20 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         new Cadastrar_Funcionario(this.loja).setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void PesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PesquisarActionPerformed
+        String termo = jTextField1.getText().trim().toLowerCase();
+        refreshFuncionariosTable(termo);
+    }//GEN-LAST:event_PesquisarActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+    
+    private void refreshFuncionariosTable() {
+        refreshFuncionariosTable(null);
+    }
+
     
     private Funcionarios buscarFuncionarioPorCPF(String cpf) {
         for (Funcionarios func : loja.getLista_funcionarios()) {
@@ -301,18 +338,57 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
         refreshFuncionariosTable(); // Mudei para refreshFuncionariosTable
     }
 
-    private void refreshFuncionariosTable() {
+    private void refreshFuncionariosTable(String filterTerm) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0); // Clear existing data
+        model.setRowCount(0);
 
-        // Add all employees to the table
-        for (Funcionarios funcionario : loja.getLista_funcionarios()) {
-            model.addRow(new Object[]{
-                funcionario.getNome(),
-                funcionario.getCpf(),
-                funcionario.getTelefone(),
-                funcionario.getEndereco()
-            });
+        List<Funcionarios> funcionarios = loja.getLista_funcionarios();
+
+        if (filterTerm != null && !filterTerm.isEmpty()) {
+            List<Funcionarios> filtered = new ArrayList<>();
+            List<Funcionarios> others = new ArrayList<>();
+
+            for (Funcionarios func : funcionarios) {
+                if (func.getNome().toLowerCase().contains(filterTerm) || 
+                    func.getCpf().toLowerCase().contains(filterTerm)) {
+                    filtered.add(func);
+                } else {
+                    others.add(func);
+                }
+            }
+
+            // Adiciona primeiro os funcionários filtrados
+            for (Funcionarios func : filtered) {
+                model.addRow(new Object[]{
+                    func.getNome(),
+                    func.getCpf(),
+                    func.getTelefone(),
+                    func.getEndereco()
+                });
+            }
+            // Depois os demais
+            for (Funcionarios func : others) {
+                model.addRow(new Object[]{
+                    func.getNome(),
+                    func.getCpf(),
+                    func.getTelefone(),
+                    func.getEndereco()
+                });
+            }
+
+            if (!filtered.isEmpty()) {
+                jTable1.setRowSelectionInterval(0, 0);
+            }
+        } else {
+            // Sem filtro - adiciona todos
+            for (Funcionarios func : funcionarios) {
+                model.addRow(new Object[]{
+                    func.getNome(),
+                    func.getCpf(),
+                    func.getTelefone(),
+                    func.getEndereco()
+                });
+            }
         }
 
         // Auto-resize columns
@@ -371,12 +447,14 @@ public class Gerencia_funcionarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Atualizar_item;
+    private javax.swing.JButton Pesquisar;
     private javax.swing.JButton atualizar;
     private javax.swing.JButton jButton1;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton remover_item;
     // End of variables declaration//GEN-END:variables
 }

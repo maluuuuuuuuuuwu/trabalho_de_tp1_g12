@@ -121,11 +121,12 @@ public class Tela_inicial_cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Gerenciar_contaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Gerenciar_contaActionPerformed
-        //new Gerenciar_conta(this.loja).setVisible(true);
+        new TelaGerenciarConta(this.loja, this.cliente, this).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_Gerenciar_contaActionPerformed
 
     private void realizar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_pedidoActionPerformed
-        //new Pedidos(this.loja,this.cliente).setVisible(true);
+        new Pedidos(this.loja, this.cliente).setVisible(true);
     }//GEN-LAST:event_realizar_pedidoActionPerformed
 
     private void MenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuActionPerformed

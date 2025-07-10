@@ -16,11 +16,83 @@ import javax.swing.JOptionPane;
 public class Cadastrar_cliente extends javax.swing.JFrame {
     private Loja loja;
     /**
-     * Creates new form cadastrar_cliente
+     * Creates new form Cadastrar_cliente
      */
     public Cadastrar_cliente(Loja loja) {
         this.loja = loja;
         initComponents();
+        configurarPlaceholders(); // Chama o método para configurar os textos de ajuda
+        this.setLocationRelativeTo(null); // Centraliza a tela
+    }
+    
+    /**
+     * Configura os textos de ajuda (placeholders) para os campos de entrada.
+     */
+    private void configurarPlaceholders() {
+        // Adiciona o "placeholder" para os campos de texto normais
+        adicionarPlaceholder(cpf, "CPF");
+        adicionarPlaceholder(Nome, "Nome");
+        adicionarPlaceholder(endereco, "Endereço");
+        adicionarPlaceholder(telefone, "(DD)XXXX-XXXX");
+        
+        // Configuração inicial para o campo de senha
+        adicionarPlaceholderSenha(senha, "Senha (mínimo 6 caracteres)");
+    }
+ 
+    /**
+     * Adiciona um comportamento de placeholder a um JTextField.
+     * O texto de ajuda some quando o campo ganha foco e reaparece se o campo ficar vazio.
+     */
+    private void adicionarPlaceholder(javax.swing.JTextField textField, String placeholder) {
+        textField.setText(placeholder);
+        textField.setForeground(java.awt.Color.GRAY);
+
+        textField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                if (textField.getText().equals(placeholder)) {
+                    textField.setText("");
+                    textField.setForeground(java.awt.Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (textField.getText().isEmpty()) {
+                    textField.setText(placeholder);
+                    textField.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
+    }
+ 
+    /**
+     * Adiciona um comportamento de placeholder a um JPasswordField.
+     * Mostra o texto de ajuda e só começa a mascarar quando o usuário digita.
+     */
+    private void adicionarPlaceholderSenha(javax.swing.JPasswordField passwordField, String placeholder) {
+        passwordField.setEchoChar((char) 0); // Mostra o texto de ajuda
+        passwordField.setText(placeholder);
+        passwordField.setForeground(java.awt.Color.GRAY);
+        
+        passwordField.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                String senhaAtual = new String(passwordField.getPassword());
+                if (senhaAtual.equals(placeholder)) {
+                    passwordField.setText("");
+                    passwordField.setEchoChar('*'); // Começa a mascarar a senha com '*'
+                    passwordField.setForeground(java.awt.Color.BLACK);
+                }
+            }
+            @Override
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                if (new String(passwordField.getPassword()).isEmpty()) {
+                    passwordField.setEchoChar((char) 0); // Mostra o texto de ajuda novamente
+                    passwordField.setText(placeholder);
+                    passwordField.setForeground(java.awt.Color.GRAY);
+                }
+            }
+        });
     }
 
     /**
@@ -142,16 +214,20 @@ public class Cadastrar_cliente extends javax.swing.JFrame {
             String senhaText = new String(senha.getPassword()).trim();
 
             // Validação 1: Verifica campos vazios
-            if (cpfText.isEmpty() || enderecoText.isEmpty() || telefoneText.isEmpty() || 
-                nome.isEmpty() || senhaText.isEmpty()) {
+            if (cpfText.isEmpty() || cpfText.equals("CPF") || 
+                nome.isEmpty() || nome.equals("Nome") ||
+                enderecoText.isEmpty() || enderecoText.equals("Endereço") ||
+                telefoneText.isEmpty() || telefoneText.equals("(DD)XXXX-XXXX") ||
+                senhaText.isEmpty() || senhaText.equals("Senha (mínimo 6 caracteres)")) {
+
                 JOptionPane.showMessageDialog(
-                    this, 
+                  this, 
                     "Todos os campos são obrigatórios!", 
                     "Erro", 
                     JOptionPane.ERROR_MESSAGE
-                );
-                return;
-            }
+            );
+    return;
+}
 
             // Validação 2: Telefone válido (formato básico)
             if (!telefoneText.matches("^\\(?\\d{2}\\)?[\\s-]?\\d{4,5}[\\s-]?\\d{4}$")) {
@@ -195,6 +271,7 @@ public class Cadastrar_cliente extends javax.swing.JFrame {
                 senhaText
             );
             loja.addCliente(cliente);
+            JOptionPane.showMessageDialog(this, "Cliente " + nome + " cadastrado com sucesso!");
             dispose();
 
         } catch (Exception e) {

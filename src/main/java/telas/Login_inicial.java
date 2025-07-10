@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 public class Login_inicial extends javax.swing.JFrame {
     private Loja loja;
     
+    
     public Login_inicial(Loja loja) {
         this.loja = loja;
         initComponents();
@@ -142,7 +143,7 @@ public class Login_inicial extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String CPF = cpf.getText();
-        String Senha = senha.getText();
+        String Senha = new String(senha.getPassword());
 
         String tipoUsuario = loja.verificarCredenciais(CPF, Senha);
 

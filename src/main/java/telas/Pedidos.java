@@ -9,9 +9,13 @@ import classes.Item;
 import classes.Loja;
 import classes.Pedido;
 import classes.SubPedido;
-import java.lang.reflect.Field;
+import java.awt.GridLayout; 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import javax.swing.JComboBox;
+import javax.swing.JLabel; 
 import javax.swing.JOptionPane;
 
 /**
@@ -21,13 +25,52 @@ import javax.swing.JOptionPane;
 public class Pedidos extends javax.swing.JFrame {
     private Loja loja;
     private Cliente cliente;
+    private Map<Item, JComboBox<String>> MapeamentoDeItens;
     /**
      * Creates new form Pedidos
      */
     public Pedidos(Loja loja, Cliente cliente) {
         this.loja = loja;
         this.cliente = cliente;
-        initComponents();
+        this.MapeamentoDeItens = new LinkedHashMap<>(); // Usamos LinkedHashMap para manter a ordem
+        
+        initComponents(); // Este método é gerado pelo NetBeans e DEVE ser a primeira chamada aqui
+        gerarCardapioDinamico(); // Chamamos o método que vai "desenhar" o cardápio
+        this.setLocationRelativeTo(null); // Centraliza a tela
+    }
+
+    private void gerarCardapioDinamico() {
+        // Pega a lista de produtos do cardápio da loja
+        List<Item> cardapio = loja.getItens_oferecidos();
+        
+        // Limpa o painel para o caso de haver algo nele
+        painelCardapio.removeAll();
+        
+        // Define o layout do painel (caso não tenha sido feito no modo Design)
+        // 0 linhas significa "quantas forem necessárias"
+        painelCardapio.setLayout(new GridLayout(0, 4, 10, 10)); 
+        
+        for (Item item : cardapio) {
+            // Cria os componentes para cada item
+            JLabel nomeItemLabel = new JLabel(item.getNome());
+            JComboBox<String> quantidadeComboBox = new JComboBox<>();
+            
+            // Adiciona as opções de quantidade (0 a 10)
+            for (int i = 0; i <= 10; i++) {
+                quantidadeComboBox.addItem(String.valueOf(i));
+            }
+            
+            // Adiciona os componentes ao painel
+            painelCardapio.add(nomeItemLabel);
+            painelCardapio.add(quantidadeComboBox);
+            
+            // Guarda a referência do item e seu ComboBox no nosso mapa
+            this.MapeamentoDeItens.put(item, quantidadeComboBox);
+        }
+        
+        // Revalida e redesenha o painel para que as mudanças apareçam
+        painelCardapio.revalidate();
+        painelCardapio.repaint();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,41 +83,14 @@ public class Pedidos extends javax.swing.JFrame {
 
         button1 = new java.awt.Button();
         label1 = new java.awt.Label();
-        labelCalabresa = new javax.swing.JComboBox<>();
-        labelPortuguesa = new javax.swing.JComboBox<>();
-        labelQuatroQueijos = new javax.swing.JComboBox<>();
-        labelPeperoni = new javax.swing.JComboBox<>();
-        labelFrango = new javax.swing.JComboBox<>();
-        labelCocaCola = new javax.swing.JComboBox<>();
-        labelGuarana = new javax.swing.JComboBox<>();
         EnviarPedido = new javax.swing.JButton();
-        label2 = new java.awt.Label();
-        label3 = new java.awt.Label();
-        label4 = new java.awt.Label();
-        label5 = new java.awt.Label();
-        label6 = new java.awt.Label();
-        label7 = new java.awt.Label();
-        label8 = new java.awt.Label();
+        painelCardapio = new javax.swing.JPanel();
 
         button1.setLabel("button1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         label1.setText("Pedido");
-
-        labelCalabresa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelPortuguesa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelQuatroQueijos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelPeperoni.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelFrango.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelCocaCola.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-
-        labelGuarana.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 
         EnviarPedido.setText("Enviar Pedido");
         EnviarPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -83,106 +99,35 @@ public class Pedidos extends javax.swing.JFrame {
             }
         });
 
-        label2.setText("Calabresa");
-
-        label3.setText("Portuguesa");
-
-        label4.setText("Quatro Queijos");
-
-        label5.setText("Peperoni");
-
-        label6.setText("Frango");
-
-        label7.setText("Coca Cola");
-
-        label8.setText("Guarana");
+        painelCardapio.setLayout(new java.awt.GridLayout(1, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(265, 265, 265)
-                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelQuatroQueijos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPeperoni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFrango, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCalabresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPortuguesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelGuarana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCocaCola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(104, 104, 104))))
+                .addGap(22, 22, 22)
+                .addComponent(painelCardapio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(EnviarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(239, 239, 239)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(245, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addContainerGap(37, Short.MAX_VALUE)
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelCalabresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelPortuguesa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelCocaCola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelGuarana, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(label7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(label8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelQuatroQueijos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPeperoni, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(label5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelFrango, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(label6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(24, 24, 24)
+                .addComponent(painelCardapio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104)
                 .addComponent(EnviarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -191,167 +136,52 @@ public class Pedidos extends javax.swing.JFrame {
     private void EnviarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarPedidoActionPerformed
         List<SubPedido> itensSelecionados = new ArrayList<>();
 
-    // --- Processa a pizza Calabresa ---
-    if (labelCalabresa.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelCalabresa.getSelectedItem());
-        List<String> ingredientes = List.of("massa", "molho", "calabresa", "queijo");
-        Item item = new Item("Calabresa", ingredientes, 35.0, loja);
+        // Itera sobre o nosso mapa de itens e comboboxes
+        for (Map.Entry<Item, JComboBox<String>> entry : MapeamentoDeItens.entrySet()) {
+            Item item = entry.getKey();
+            JComboBox<String> comboBox = entry.getValue();
 
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Calabresa.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+            int quantidade = comboBox.getSelectedIndex();
+
+            if (quantidade > 0) {
+                if (!item.verificaEstoque(quantidade)) {
+                    JOptionPane.showMessageDialog(this, "Estoque insuficiente para: " + item.getNome(), "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
+                    return; 
+                }
+                item.remove_estoque(quantidade);
+                itensSelecionados.add(new SubPedido(item, quantidade));
+            }
+        }
+        
+        if (itensSelecionados.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
 
-    // --- Processa a pizza Portuguesa ---
-    if (labelPortuguesa.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelPortuguesa.getSelectedItem());
-        List<String> ingredientes = List.of("massa", "molho", "presunto", "ovo", "ervilha", "queijo");
-        Item item = new Item("Portuguesa", ingredientes, 38.0, loja);
+        Pedido pedido = new Pedido(itensSelecionados, loja.getDescontos(), loja, cliente);
+        loja.addPedido(pedido);
 
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Portuguesa.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
+        double frete = loja.calcularFrete(cliente.getEndereco());
+        double totalSemDesconto = pedido.calculaTotal();
+        double totalFinal = pedido.calculaTotal_desconto();
 
-    // --- Processa a pizza Quatro Queijos ---
-    if (labelQuatroQueijos.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelQuatroQueijos.getSelectedItem());
-        List<String> ingredientes = List.of("massa", "molho", "mussarela", "provolone", "parmesao", "gorgonzola");
-        Item item = new Item("Quatro Queijos", ingredientes, 40.0, loja);
-
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Quatro Queijos.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
-
-    // --- Processa a pizza Peperoni ---
-    if (labelPeperoni.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelPeperoni.getSelectedItem());
-        List<String> ingredientes = List.of("massa", "molho", "peperoni", "queijo");
-        Item item = new Item("Peperoni", ingredientes, 42.0, loja);
-
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Peperoni.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
-
-    // --- Processa a pizza de Frango ---
-    if (labelFrango.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelFrango.getSelectedItem());
-        List<String> ingredientes = List.of("massa", "molho", "frango", "catupiry", "queijo");
-        Item item = new Item("Frango", ingredientes, 37.0, loja);
-
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Frango.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
-
-    // --- Processa a Coca Cola ---
-    if (labelCocaCola.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelCocaCola.getSelectedItem());
-        List<String> ingredientes = List.of("cocacola");
-        Item item = new Item("Coca Cola", ingredientes, 8.0, loja);
-
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Coca Cola.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
-
-    // --- Processa o Guaraná ---
-    if (labelGuarana.getSelectedIndex() > 0) {
-        int qtd = Integer.parseInt((String) labelGuarana.getSelectedItem());
-        List<String> ingredientes = List.of("guarana");
-        Item item = new Item("Guarana", ingredientes, 7.0, loja);
-
-        if (!item.verificaEstoque(qtd)) {
-            JOptionPane.showMessageDialog(this, "Estoque insuficiente para Guaraná.", "Erro de Estoque", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        item.remove_estoque(qtd);
-        itensSelecionados.add(new SubPedido(item, qtd));
-        loja.addItemOferecido(item);
-    }
-
-
-    // --- Finalização do Pedido ---
-    if (itensSelecionados.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Nenhum item foi selecionado!", "Erro", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    Pedido pedido = new Pedido(itensSelecionados, loja.getDescontos(), loja, cliente);
-    // Este bloco 'try-catch' é para o caso de o cliente não estar definido, o que não deve acontecer aqui
-    try {
-        Field clienteField = Pedido.class.getDeclaredField("cliente");
-        clienteField.setAccessible(true);
-        clienteField.set(pedido, cliente);
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-
-    loja.addPedido(pedido);
-
-    double frete = 0;
-    try {
-        if (cliente != null && cliente.getEndereco() != null) {
-            frete = loja.calcularFrete(cliente.getEndereco());
-        }
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, e.getMessage(), "Endereço inválido", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    double totalSemDesconto = pedido.calculaTotal();
-    double totalFinal = pedido.calculaTotal_desconto();
-    if (totalFinal == 0) {
-        totalFinal = totalSemDesconto;
-    }
-    double tempoEstimado = loja.calcularTempo();
-
-    StringBuilder itensStr = new StringBuilder();
-    for (SubPedido sp : itensSelecionados) {
-        itensStr.append(sp.getQuantidade())
-                .append("x ")
-                .append(sp.getItem().getNome())
-                .append(" (R$")
-                .append(String.format("%.2f", sp.getItem().getPreco()))
-                .append(")\n");
-    }
-
-    String mensagem = String.format(
-            "Pedido realizado com sucesso!\n\nItens:\n%s\nFrete: R$ %.2f\nTotal sem desconto: R$ %.2f\nTotal com desconto: R$ %.2f\nTempo estimado de produção: %.1f minutos",
-            itensStr.toString(),
+        String resumo = String.format(
+            "Pedido realizado com sucesso!\n\nItens Pedidos:\n%s\nFrete: R$ %.2f\nTotal Bruto: R$ %.2f\nTotal com Desconto: R$ %.2f",
+            formatarItens(pedido.getItens()),
             frete,
             totalSemDesconto,
-            totalFinal,
-            tempoEstimado
-    );
+            totalFinal
+        );
+        JOptionPane.showMessageDialog(this, resumo, "Pedido Confirmado", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+    }
 
-    JOptionPane.showMessageDialog(this, mensagem, "Resumo do Pedido", JOptionPane.INFORMATION_MESSAGE);
+    private String formatarItens(List<SubPedido> itens) {
+        StringBuilder sb = new StringBuilder();
+        for (SubPedido sp : itens) {
+            sb.append(String.format("- %d x %s (R$ %.2f)\n", sp.getQuantidade(), sp.getItem().getNome(), sp.getItem().getPreco()));
+        }
+        return sb.toString();     
     }//GEN-LAST:event_EnviarPedidoActionPerformed
 
     /**
@@ -393,19 +223,6 @@ public class Pedidos extends javax.swing.JFrame {
     private javax.swing.JButton EnviarPedido;
     private java.awt.Button button1;
     private java.awt.Label label1;
-    private java.awt.Label label2;
-    private java.awt.Label label3;
-    private java.awt.Label label4;
-    private java.awt.Label label5;
-    private java.awt.Label label6;
-    private java.awt.Label label7;
-    private java.awt.Label label8;
-    private javax.swing.JComboBox<String> labelCalabresa;
-    private javax.swing.JComboBox<String> labelCocaCola;
-    private javax.swing.JComboBox<String> labelFrango;
-    private javax.swing.JComboBox<String> labelGuarana;
-    private javax.swing.JComboBox<String> labelPeperoni;
-    private javax.swing.JComboBox<String> labelPortuguesa;
-    private javax.swing.JComboBox<String> labelQuatroQueijos;
+    private javax.swing.JPanel painelCardapio;
     // End of variables declaration//GEN-END:variables
 }

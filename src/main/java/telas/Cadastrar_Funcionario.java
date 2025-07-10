@@ -178,9 +178,14 @@ public class Cadastrar_Funcionario extends javax.swing.JFrame {
             String nome = Nome.getText().trim();
             String senhaText = new String(senha.getPassword()).trim();
 
-            // Validação 1: Verifica campos vazios
-            if (funcao.isEmpty() || cpfText.isEmpty() || enderecoText.isEmpty() || 
-                telefoneText.isEmpty() || nome.isEmpty() || senhaText.isEmpty()) {
+            // Validação 1: Verifica campos vazios ou com placeholder
+            if (funcao.isEmpty() || funcao.equals("Função") || 
+                cpfText.isEmpty() || cpfText.equals("CPF") || 
+                enderecoText.isEmpty() || enderecoText.equals("Endereço") || 
+                telefoneText.isEmpty() || telefoneText.equals("(DD)XXXX-XXXX") || 
+                nome.isEmpty() || nome.equals("Nome") || 
+                senhaText.isEmpty() || senhaText.equals("Senha (mínimo 6 caracteres)")) {
+                
                 JOptionPane.showMessageDialog(
                     this, 
                     "Todos os campos são obrigatórios! Preencha corretamente.", 

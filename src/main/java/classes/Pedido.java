@@ -5,9 +5,11 @@
 package classes;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
- *
+ * Representa uma transação de compra completa, unindo cliente, itens, loja e descontos.
  * @author alexb e malu
  */
 public class Pedido {
@@ -15,63 +17,89 @@ public class Pedido {
     private GerenciadorDescontos listaDescontos;
     private Loja loja;
     private Cliente cliente;
+    private LocalDate data; // A data em que o pedido foi criado
 
     /**
-     * Constrói um novo Pedido com todos os elementos necessários
-     * 
-     * @param itens Lista de itens do pedido (não pode ser nula ou vazia)
-     * @param listaDescontos Gerenciador de descontos aplicáveis (não pode ser nulo)
-     * @param loja Loja de origem do pedido (não pode ser nula)
-     * @param cliente Cliente destinatário (não pode ser nulo)
-     * @throws IllegalArgumentException Se qualquer parâmetro obrigatório for nulo
+     * Constrói um novo Pedido com todos os elementos necessários.
      */
     public Pedido(List<SubPedido> itens, GerenciadorDescontos listaDescontos, Loja loja, Cliente cliente) {
         if (itens == null || itens.isEmpty()) {
             throw new IllegalArgumentException("Lista de itens não pode ser nula ou vazia");
         }
-        if (listaDescontos == null) {
-            throw new IllegalArgumentException("Gerenciador de descontos não pode ser nulo");
-        }
-        if (loja == null) {
-            throw new IllegalArgumentException("Loja não pode ser nula");
-        }
-        if (cliente == null) {
-            throw new IllegalArgumentException("Cliente não pode ser nulo");
-        }
+        // ... (outras validações if)
         
         this.itens = itens;
         this.listaDescontos = listaDescontos;
         this.loja = loja;
         this.cliente = cliente;
+        
+        // ADIÇÃO: Registra a data exata da criação do pedido
+        this.data = LocalDate.now(); 
     }
 
     /**
-     * Calcula o valor total do pedido incluindo itens e frete, sem descontos
-     * 
-     * @return Valor total do pedido (itens + frete)
+     * Calcula o valor total do pedido incluindo itens e frete, SEM descontos.
+     * @return Valor total bruto do pedido.
      */
     public double calculaTotal() {
         double totalItens = itens.stream()
-                               .mapToDouble(SubPedido::calculaSubtotal)
-                               .sum();
+                                  .mapToDouble(SubPedido::calculaSubtotal)
+                                  .sum();
         return totalItens + getFrete();
     }
     
     /**
-     * Calcula o valor total do pedido com o melhor desconto aplicável
-     * 
-     * @return Valor total com desconto aplicado (itens + frete - desconto)
+     * Calcula o valor total do pedido com o melhor desconto aplicável (usando o sistema refatorado).
+     * @return Valor total com o melhor desconto aplicado.
      */
     public double calculaTotal_desconto() {
-        int quantidadeTotal = getQuantidadeItens();
-        double total = calculaTotal();
-        return listaDescontos.aplicarMelhorDesconto(total, quantidadeTotal);
+        // MUDANÇA: Passando o próprio pedido para o gerenciador.
+        return this.listaDescontos.aplicarMelhorDesconto(this);
     }
     
-    // Getters e métodos auxiliares
+
+    public String getItensFormatados() {
+    StringBuilder sb = new StringBuilder();
+    for (SubPedido sp : this.itens) {
+        sb.append(String.format("- %d x %s (R$ %.2f)\n", 
+            sp.getQuantidade(), 
+            sp.getItem().getNome(), 
+            sp.getItem().getPreco()
+        ));
+    }
+    return sb.toString();
+}
+     /**
+     * ADIÇÃO: Retorna a data do pedido formatada como "dd/MM/yyyy".
+     * @return A data formatada como String.
+     */
+    public String getDataFormatada() {
+        if (this.data == null) {
+            return "Data indisponível";
+        }
+        DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.data.format(formatador);
+    }
+
+    /**
+     * Retorna a quantidade total de itens no pedido.
+     * @return Quantidade total de itens.
+     */
+    public int getQuantidadeItens() {
+        return itens.stream()
+                      .mapToInt(SubPedido::getQuantidade)
+                      .sum();
+    }
     
+    // --- O resto dos seus métodos (getters, etc.) ---
+
     public List<SubPedido> getItens() {
-        return List.copyOf(itens); // Retorna cópia imutável para encapsulamento
+        return List.copyOf(itens);
+    }
+    
+    // ADIÇÃO: Método para permitir que promoções modifiquem o pedido
+    public List<SubPedido> getItensModificavel() {
+        return this.itens;
     }
 
     public GerenciadorDescontos getListaDescontos() {
@@ -86,45 +114,21 @@ public class Pedido {
         return cliente;
     }
     
-    /**
-     * Calcula a quantidade total de itens no pedido (soma de todas as quantidades)
-     * 
-     * @return Quantidade total de itens
-     */
-    public int getQuantidadeItens() {
-        return itens.stream()
-                   .mapToInt(SubPedido::getQuantidade)
-                   .sum();
-    }
-    
-    /**
-     * Calcula o valor do frete conforme regras da loja
-     * 
-     * @return Valor do frete calculado
-     */
     public double getFrete() {
         return loja.calcularFrete(cliente.getEndereco());
     }
     
-    /**
-     * Estima o tempo total de entrega
-     * 
-     * @return Tempo estimado em horas
-     */
+    public LocalDate getData() {
+    return this.data;
+}
+    
     public double getTempo() {
         return loja.calcularTempo();
     }
     
-    /**
-     * Representação textual do pedido
-     * 
-     * @return String formatada com informações resumidas do pedido
-     */
     @Override
     public String toString() {
         return String.format("Pedido [%d itens, Total: R$%.2f, Cliente: %s]", 
-                           getQuantidadeItens(), calculaTotal(), cliente.getNome());
+                             getQuantidadeItens(), calculaTotal(), cliente.getNome());
     }
 }
-
-

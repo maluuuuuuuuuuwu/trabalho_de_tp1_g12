@@ -45,7 +45,7 @@ public class Tela_inicial_funcionario extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Yrsa SemiBold", 1, 80)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel1.setText("        Linf pizzas!");
+        jLabel1.setText("    Linf pizzas!");
         jLabel1.setToolTipText("");
 
         cadastrar_cliente.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N

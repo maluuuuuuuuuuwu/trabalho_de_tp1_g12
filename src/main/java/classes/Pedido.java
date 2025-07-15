@@ -57,6 +57,32 @@ public class Pedido {
         return this.listaDescontos.aplicarMelhorDesconto(this);
     }
     
+    /**
+    * Calcula o valor total do pedido incluindo itens e frete, COM descontos.
+    * Este é o método que deve ser usado para obter o valor final.
+    * @return Valor total final do pedido com desconto aplicado.
+    */
+    public double getValorTotal() {
+        double valorBaseItens = itens.stream()
+                                  .mapToDouble(SubPedido::calculaSubtotal)
+                                  .sum();
+        double valorComFrete = valorBaseItens + getFrete();
+
+        // Aplica o melhor desconto disponível
+        return listaDescontos.aplicarMelhorDesconto(valorComFrete, getQuantidadeItens());
+    }
+
+    /**
+     * Retorna o valor base dos itens do pedido, sem considerar frete ou descontos.
+     * Este método será útil para calcular o valor do desconto aplicado.
+     * @return Valor base dos itens.
+     */
+    public double getValorBase() {
+        return itens.stream()
+                    .mapToDouble(SubPedido::calculaSubtotal)
+                    .sum();
+    }
+
 
     public String getItensFormatados() {
     StringBuilder sb = new StringBuilder();

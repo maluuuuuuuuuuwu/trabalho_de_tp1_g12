@@ -3,13 +3,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package classes;
-
+import java.io.Serializable;
 /**
  * Classe que representa um funcionário da loja, herdando de Pessoa.
  * 
  * @author malu
  */
-public class Funcionarios extends Pessoa implements Usuario_Interface{
+public class Funcionarios extends Pessoa implements Usuario_Interface, Serializable{
     private String funcao;
 
     /**

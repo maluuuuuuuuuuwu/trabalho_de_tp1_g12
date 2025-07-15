@@ -88,6 +88,7 @@ public class Loja {
      */
     public void addCliente(Cliente cliente) {
         usuarios.cadastrarCliente(cliente);
+        usuarios.salvarUsuarios();
     }
 
     /**
@@ -97,6 +98,7 @@ public class Loja {
      */
     public void addFuncionario(Funcionarios funcionario) {
         usuarios.cadastrarFuncionario(funcionario);
+        usuarios.salvarUsuarios();
     }
 
     /**
@@ -281,4 +283,7 @@ public class Loja {
         return item != null && itens_oferecidos.remove(item);
     }
 
+    public GerenciadorUsuarios getGerenciadorUsuarios() {
+        return usuarios;
+    }
 }

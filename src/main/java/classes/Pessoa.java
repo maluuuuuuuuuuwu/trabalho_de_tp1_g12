@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package classes;
+import java.io.Serializable;
 
 /**
  * Classe abstrata que representa uma pessoa genérica com informações básicas como CPF, 
@@ -10,7 +11,7 @@ package classes;
  * 
  * @author malu
  */
-public abstract class Pessoa {
+public abstract class Pessoa implements Serializable{
     protected String cpf;
     protected String endereco;
     protected String telefone;

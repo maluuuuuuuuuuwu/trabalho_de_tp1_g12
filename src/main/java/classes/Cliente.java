@@ -5,13 +5,14 @@
 package classes;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 /**
  * Classe que representa um cliente da pizzaria, herdando de Pessoa.
  * 
  * @author alexb
  */
-public class Cliente extends Pessoa implements Usuario_Interface{
+public class Cliente extends Pessoa implements Usuario_Interface, Serializable{
     private List<Pedido> pedidos = new ArrayList<>();
     private int pizzasCompradas;
 
